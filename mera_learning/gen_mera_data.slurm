@@ -8,6 +8,6 @@
 #SBATCH --ntasks=32
 #SBATCH --ntasks-per-node=4
 
-
-srun /nfs_home/npsawaya/anaconda3/bin/python mera_sample_generator.py 32 
+conda activate pando
+srun python mera_sample_generator.py 32 
 
