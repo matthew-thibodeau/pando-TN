@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#SBATCH -o /nfs_home/npsawaya/pando-TN/mera_learning/outs/job.%j.out
-#SBATCH -D /nfs_home/npsawaya/pando-TN/mera_learning
+#SBATCH -o /nfs_home/npsawaya/proj/pando-TN/mera_learning/outs/job.%j.out
+#SBATCH -D /nfs_home/npsawaya/proj/pando-TN/mera_learning
 #SBATCH -J mera_trunc 
 #SBATCH --get-user-env
 #SBATCH --partition=clxtrb
