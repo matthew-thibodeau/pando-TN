@@ -2,7 +2,7 @@ DATASET A
 
 File random_tree_dataset_A.h5 contains:
 	a dataset named 'H_data' of shape (100, 20,2) containing 100 random input instances
-	100 datasets names 'tree_data_{idx}' containing the outputs
+	100 datasets named 'tree_data_{idx}' containing the outputs
 
 dataset H_data: 
 - index 1 runs over the 100 random instances, each of size (20,2)

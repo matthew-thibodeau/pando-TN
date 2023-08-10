@@ -113,7 +113,7 @@ def restrict_move_reward_dict(Qdict, ttn):
 
 
 def q_learn(ttn, mpo, max_bond, num_episodes, episode_length, discount = 0.3,
-            learning_rate = 0.2, epsilon = 0.1, Qinit = None):
+            learning_rate = 0.05, epsilon = 0.1, Qinit = None):
 
     L = mpo.L
     best_Rs = [0]
