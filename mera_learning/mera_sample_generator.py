@@ -49,7 +49,7 @@ def dist_distance(idxs1, idxs2):
 def norm_fn(mera):
     # there are a few methods to do the projection
     # exp works well for optimization
-    return mera.unitize(method='exp')
+    return mera.isometrize(method='exp')
 
 def local_expectation(mera, terms, where, optimize='auto-hq'):
     """Compute the energy for a single local term.
@@ -190,7 +190,7 @@ def update_mera_local(mera, localtn, unitags):
             newiso = qtn.IsoTensor(newtensor)
             newiso.left_inds = li
             
-        newiso.unitize_()
+        newiso.isometrize()
         emoc[iso.tags] = newiso
     return emoc
     
@@ -288,7 +288,7 @@ def truncate_unitary(mera, unitags, terms, method='randomize', localoptiteration
                 return loss_energy(checker, terms)
             
             def local_norm(localtn):
-                return qtn.TensorNetwork([tt.unitize(method='exp') for tt in localtn.tensors])
+                return qtn.TensorNetwork([tt.isometrize(method='exp') for tt in localtn.tensors])
                 # localtn['_UNI'].unitize_(method='exp')
                 # _ = [tt.unitize_() for tt in localtn['ADDED_PROJECTOR']]
             
