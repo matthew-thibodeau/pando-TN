@@ -402,7 +402,7 @@ coupling_vals = np.random.normal(j0, disorder_strength, L)
 builder = qtn.SpinHam1D(S=1/2, cyclic=True)
 terms = {}
 
-runs = 100
+runs = 1
 for run in range(runs):  # 'runs' --> 'range(runs)' npds 2023-08-21
     
     
@@ -461,7 +461,7 @@ for run in range(runs):  # 'runs' --> 'range(runs)' npds 2023-08-21
         autodiff_backend='torch', jit_fn=True,
     )
     eopt.optimizer = 'adam'  # the default
-    emo = eopt.optimize(1500)
+    emo = eopt.optimize(10)
     
     
     optimal = emo.copy()
@@ -471,7 +471,7 @@ for run in range(runs):  # 'runs' --> 'range(runs)' npds 2023-08-21
     emo_largest = emo.copy()
     
     # the truncation loop
-    numtruncs = 12
+    numtruncs = 1
     slosses = []
     truncidx = []
     best_energies = [loss_energy(emo, terms)]
@@ -497,7 +497,7 @@ for run in range(runs):  # 'runs' --> 'range(runs)' npds 2023-08-21
         q = get_entanglement_spectra(emo)
         (sloss, truncnext), idx = to_truncate(q)
         emo = truncate_unitary(emo, truncnext, terms,  
-                               method = 'local', localoptiterations = 1000)
+                               method = 'local', localoptiterations = 10)
         
         print(f'svd: {idx}')
         
@@ -510,7 +510,7 @@ for run in range(runs):  # 'runs' --> 'range(runs)' npds 2023-08-21
         q_largest = get_entanglement_spectra(emo_largest)
         (sloss_l, truncnext_l), idx_l = to_truncate(q_largest, method = 'largest')
         emo_largest = truncate_unitary(emo_largest, truncnext_l, terms,  
-                                       method='local', localoptiterations = 1000)
+                                       method='local', localoptiterations = 10)
         
         print(f'largest: {idx_l}')
         
