@@ -1,0 +1,419 @@
+/tmp/slurmd/job1265357/slurm_script: line 12: /swtools/intel/compilers_and_libraries_2020.4.304/linux/mpi/bin64/mpivars.sh: No such file or directory
+
+CommandNotFoundError: Your shell has not been properly configured to use 'conda activate'.
+To initialize your shell, run
+
+    $ conda init <SHELL_NAME>
+
+Currently supported shells are:
+  - bash
+  - fish
+  - tcsh
+  - xonsh
+  - zsh
+  - powershell
+
+See 'conda init --help' for more information and options.
+
+IMPORTANT: You may need to close and restart your shell after running 'conda init'.
+
+
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+srun: error: pcl-skx14: tasks 0-1: Exited with exit code 1
+srun: error: pcl-skx14: tasks 2-3: Exited with exit code 1
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+srun: error: pcl-skx23: tasks 21-22: Exited with exit code 1
+srun: error: pcl-skx21: tasks 14-15: Exited with exit code 1
+srun: error: pcl-skx23: tasks 20,23: Exited with exit code 1
+srun: error: pcl-skx21: tasks 12-13: Exited with exit code 1
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+srun: error: pcl-skx24: tasks 24,26: Exited with exit code 1
+srun: error: pcl-skx24: tasks 25,27: Exited with exit code 1
+srun: error: pcl-skx20: tasks 9,11: Exited with exit code 1
+srun: error: pcl-skx20: tasks 8,10: Exited with exit code 1
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+srun: error: pcl-skx15: tasks 4,7: Exited with exit code 1
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+srun: error: pcl-skx15: tasks 5-6: Exited with exit code 1
+srun: error: pcl-skx25: tasks 28-31: Exited with exit code 1
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 455, in <module>
+    eopt = qtn.TNOptimizer(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 1164, in __init__
+    self.handler = _BACKEND_HANDLERS[autodiff_backend](**backend_opts)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 534, in __init__
+    torch = get_torch()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/tensor/optimize.py", line 527, in get_torch
+    import torch
+ModuleNotFoundError: No module named 'torch'
+srun: error: pcl-skx22: tasks 16-18: Exited with exit code 1
+srun: error: pcl-skx22: task 19: Exited with exit code 1

@@ -1,0 +1,764 @@
+
+CommandNotFoundError: Your shell has not been properly configured to use 'conda activate'.
+To initialize your shell, run
+
+    $ conda init <SHELL_NAME>
+
+Currently supported shells are:
+  - bash
+  - fish
+  - tcsh
+  - xonsh
+  - zsh
+  - powershell
+
+See 'conda init --help' for more information and options.
+
+IMPORTANT: You may need to close and restart your shell after running 'conda init'.
+
+
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 17, in <module>
+    import quimb as qu
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/__init__.py", line 25, in <module>
+    from .core import (
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/core.py", line 451, in <module>
+    _nb_complex_seq = vectorize(_cmplx_sigs)(_nb_complex_base)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/decorators.py", line 131, in wrap
+    vec.add(sig)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 175, in add
+    return self._compile_for_argtys(args, return_type)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 223, in _compile_for_argtys
+    cres, argtys, return_type = ufuncbuilder._compile_element_wise_function(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 176, in _compile_element_wise_function
+    cres = nb_func.compile(sig, **targetoptions)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 124, in compile
+    return self._compile_core(sig, flags, locals)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 163, in _compile_core
+    self.cache.save_overload(sig, cres)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 652, in save_overload
+    self._save_overload(sig, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 662, in _save_overload
+    self._cache_file.save(key, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 466, in save
+    overloads = self._load_index()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 502, in _load_index
+    version = pickle.load(f)
+OSError: [Errno 116] Stale file handle
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 17, in <module>
+    import quimb as qu
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/__init__.py", line 25, in <module>
+    from .core import (
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/core.py", line 451, in <module>
+    _nb_complex_seq = vectorize(_cmplx_sigs)(_nb_complex_base)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/decorators.py", line 131, in wrap
+    vec.add(sig)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 175, in add
+    return self._compile_for_argtys(args, return_type)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 223, in _compile_for_argtys
+    cres, argtys, return_type = ufuncbuilder._compile_element_wise_function(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 176, in _compile_element_wise_function
+    cres = nb_func.compile(sig, **targetoptions)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 124, in compile
+    return self._compile_core(sig, flags, locals)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 163, in _compile_core
+    self.cache.save_overload(sig, cres)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 652, in save_overload
+    self._save_overload(sig, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 662, in _save_overload
+    self._cache_file.save(key, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 466, in save
+    overloads = self._load_index()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 502, in _load_index
+    version = pickle.load(f)
+OSError: [Errno 116] Stale file handle
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 17, in <module>
+    import quimb as qu
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/__init__.py", line 25, in <module>
+    from .core import (
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/core.py", line 451, in <module>
+    _nb_complex_seq = vectorize(_cmplx_sigs)(_nb_complex_base)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/decorators.py", line 131, in wrap
+    vec.add(sig)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 175, in add
+    return self._compile_for_argtys(args, return_type)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 223, in _compile_for_argtys
+    cres, argtys, return_type = ufuncbuilder._compile_element_wise_function(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 176, in _compile_element_wise_function
+    cres = nb_func.compile(sig, **targetoptions)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 124, in compile
+    return self._compile_core(sig, flags, locals)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 151, in _compile_core
+    cres = self.cache.load_overload(sig, targetctx)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 635, in load_overload
+    return self._load_overload(sig, target_context)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 642, in _load_overload
+    data = self._cache_file.load(key)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 485, in load
+    overloads = self._load_index()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 503, in _load_index
+    data = f.read()
+OSError: [Errno 116] Stale file handle
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 17, in <module>
+    import quimb as qu
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/__init__.py", line 25, in <module>
+    from .core import (
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/core.py", line 451, in <module>
+    _nb_complex_seq = vectorize(_cmplx_sigs)(_nb_complex_base)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/decorators.py", line 131, in wrap
+    vec.add(sig)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 175, in add
+    return self._compile_for_argtys(args, return_type)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 223, in _compile_for_argtys
+    cres, argtys, return_type = ufuncbuilder._compile_element_wise_function(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 176, in _compile_element_wise_function
+    cres = nb_func.compile(sig, **targetoptions)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 124, in compile
+    return self._compile_core(sig, flags, locals)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 151, in _compile_core
+    cres = self.cache.load_overload(sig, targetctx)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 635, in load_overload
+    return self._load_overload(sig, target_context)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 642, in _load_overload
+    data = self._cache_file.load(key)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 485, in load
+    overloads = self._load_index()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 502, in _load_index
+    version = pickle.load(f)
+OSError: [Errno 116] Stale file handle
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 17, in <module>
+    import quimb as qu
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/__init__.py", line 25, in <module>
+    from .core import (
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/core.py", line 451, in <module>
+    _nb_complex_seq = vectorize(_cmplx_sigs)(_nb_complex_base)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/decorators.py", line 131, in wrap
+    vec.add(sig)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 175, in add
+    return self._compile_for_argtys(args, return_type)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 223, in _compile_for_argtys
+    cres, argtys, return_type = ufuncbuilder._compile_element_wise_function(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 176, in _compile_element_wise_function
+    cres = nb_func.compile(sig, **targetoptions)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 124, in compile
+    return self._compile_core(sig, flags, locals)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 163, in _compile_core
+    self.cache.save_overload(sig, cres)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 652, in save_overload
+    self._save_overload(sig, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 662, in _save_overload
+    self._cache_file.save(key, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 466, in save
+    overloads = self._load_index()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 501, in _load_index
+    with open(self._index_path, "rb") as f:
+OSError: [Errno 116] Stale file handle: '/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/__pycache__/core._nb_complex_base-446.py38.nbi'
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 17, in <module>
+    import quimb as qu
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/__init__.py", line 25, in <module>
+    from .core import (
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/core.py", line 452, in <module>
+    _nb_complex_par = pvectorize(_cmplx_sigs)(_nb_complex_base)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/decorators.py", line 131, in wrap
+    vec.add(sig)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 258, in add
+    cres, args, return_type = _compile_element_wise_function(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 176, in _compile_element_wise_function
+    cres = nb_func.compile(sig, **targetoptions)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/pTraceback (most recent call last):
+  File "mera_sample_generator.py", line 17, in <module>
+    import quimb as qu
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/__init__.py", line 25, in <module>
+    from .core import (
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/core.py", line 452, in <module>
+    _nb_complex_par = pvectorize(_cmplx_sigs)(_nb_complex_base)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/decorators.py", line 131, in wrap
+    vec.add(sig)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 258, in add
+    cres, args, return_type = _compile_element_wise_function(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 176, in _compile_element_wise_function
+    cres = nb_func.compile(sig, **targetoptions)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 124, in compile
+    return self._compile_core(sig, flags, locals)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 163, in _compile_core
+    self.cache.save_overload(sig, cres)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 652, in save_overload
+    self._save_overload(sig, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 662, in _save_overload
+    self._cache_file.save(key, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 466, in save
+    overloads = self._load_index()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 502, in _load_index
+    version = pickle.load(f)
+OSError: [Errno 116] Stale file handle
+ython3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 124, in compile
+    return self._compile_core(sig, flags, locals)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 151, in _compile_core
+    cres = self.cache.load_overload(sig, targetctx)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 635, in load_overload
+    return self._load_overload(sig, target_context)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 642, in _load_overload
+    data = self._cache_file.load(key)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 485, in load
+    overloads = self._load_index()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 502, in _load_index
+    version = pickle.load(f)
+OSError: [Errno 116] Stale file handle
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 17, in <module>
+    import quimb as qu
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/__init__.py", line 25, in <module>
+    from .core import (
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/core.py", line 452, in <module>
+    _nb_complex_par = pvectorize(_cmplx_sigs)(_nb_complex_base)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/decorators.py", line 131, in wrap
+    vec.add(sig)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 258, in add
+    cres, args, return_type = _compile_element_wise_function(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 176, in _compile_element_wise_function
+    cres = nb_func.compile(sig, **targetoptions)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 124, in compile
+    return self._compile_core(sig, flags, locals)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 163, in _compile_core
+    self.cache.save_overload(sig, cres)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 652, in save_overload
+    self._save_overload(sig, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 662, in _save_overload
+    self._cache_file.save(key, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 466, in save
+    overloads = self._load_index()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 502, in _load_index
+    version = pickle.load(f)
+OSError: [Errno 116] Stale file handle
+srun: error: pcl-skx23: tasks 21-23: Exited with exit code 1
+srun: error: pcl-skx21: tasks 13-14: Exited with exit code 1
+srun: error: pcl-skx24: task 24: Exited with exit code 1
+srun: error: pcl-skx15: task 7: Exited with exit code 1
+srun: error: pcl-skx20: task 11: Exited with exit code 1
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 17, in <module>
+    import quimb as qu
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/__init__.py", line 25, in <module>
+    from .core import (
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/core.py", line 507, in <module>
+    _nb_subtract_update_seq = vectorize(_sbtrct_sigs)(_nb_subtract_update_base)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/decorators.py", line 131, in wrap
+    vec.add(sig)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 175, in add
+    return self._compile_for_argtys(args, return_type)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 223, in _compile_for_argtys
+    cres, argtys, return_type = ufuncbuilder._compile_element_wise_function(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 176, in _compile_element_wise_function
+    cres = nb_func.compile(sig, **targetoptions)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 124, in compile
+    return self._compile_core(sig, flags, locals)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 163, in _compile_core
+    self.cache.save_overload(sig, cres)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 652, in save_overload
+    self._save_overload(sig, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 662, in _save_overload
+    self._cache_file.save(key, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 466, in save
+    overloads = self._load_index()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 502, in _load_index
+    version = pickle.load(f)
+OSError: [Errno 116] Stale file handle
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 17, in <module>
+    import quimb as qu
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/__init__.py", line 25, in <module>
+    from .core import (
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/core.py", line 507, in <module>
+    _nb_subtract_update_seq = vectorize(_sbtrct_sigs)(_nb_subtract_update_base)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/decorators.py", line 131, in wrap
+    vec.add(sig)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 175, in add
+    return self._compile_for_argtys(args, return_type)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 223, in _compile_for_argtys
+    cres, argtys, return_type = ufuncbuilder._compile_element_wise_function(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 176, in _compile_element_wise_function
+    cres = nb_func.compile(sig, **targetoptions)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 124, in compile
+    return self._compile_core(sig, flags, locals)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 163, in _compile_core
+    self.cache.save_overload(sig, cres)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 652, in save_overload
+    self._save_overload(sig, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 662, in _save_overload
+    self._cache_file.save(key, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 466, in save
+    overloads = self._load_index()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 502, in _load_index
+    version = pickle.load(f)
+OSError: [Errno 116] Stale file handle
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 17, in <module>
+    import quimb as qu
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/__init__.py", line 25, in <module>
+    from .core import (
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/core.py", line 507, in <module>
+    _nb_subtract_update_seq = vectorize(_sbtrct_sigs)(_nb_subtract_update_base)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/decorators.py", line 131, in wrap
+    vec.add(sig)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 175, in add
+    return self._compile_for_argtys(args, return_type)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 223, in _compile_for_argtys
+    cres, argtys, return_type = ufuncbuilder._compile_element_wise_function(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 176, in _compile_element_wise_function
+    cres = nb_func.compile(sig, **targetoptions)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 124, in compile
+    return self._compile_core(sig, flags, locals)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 151, in _compile_core
+    cres = self.cache.load_overload(sig, targetctx)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 635, in load_overload
+    return self._load_overload(sig, target_context)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 642, in _load_overload
+    data = self._cache_file.load(key)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 485, in load
+    overloads = self._load_index()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 502, in _load_index
+    version = pickle.load(f)
+OSError: [Errno 116] Stale file handle
+srun: error: pcl-skx24: task 27: Exited with exit code 1
+srun: error: pcl-skx20: tasks 9-10: Exited with exit code 1
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 17, in <module>
+    import quimb as qu
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/__init__.py", line 25, in <module>
+    from .core import (
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/core.py", line 507, in <module>
+    _nb_subtract_update_seq = vectorize(_sbtrct_sigs)(_nb_subtract_update_base)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/decorators.py", line 131, in wrap
+    vec.add(sig)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 175, in add
+    return self._compile_for_argtys(args, return_type)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 223, in _compile_for_argtys
+    cres, argtys, return_type = ufuncbuilder._compile_element_wise_function(
+  File "/nfs_home/npsawaya/miniconda3/enTraceback (most recent call last):
+  File "mera_sample_generator.py", line 17, in <module>
+    import quimb as qu
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/__init__.py", line 25, in <module>
+    from .core import (
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/core.py", line 507, in <module>
+    _nb_subtract_update_seq = vectorize(_sbtrct_sigs)(_nb_subtract_update_base)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/decorators.py", line 131, in wrap
+    vec.add(sig)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 175, in add
+    return self._compile_for_argtys(args, return_type)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 223, in _compile_for_argtys
+    cres, argtys, return_type = ufuncbuilder._compile_element_wise_function(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 176, in _compile_element_wise_function
+    cres = nb_func.compile(sig, **targetoptions)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 124, in compile
+    return self._compile_core(sig, flags, locals)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 163, in _compile_core
+    self.cache.save_overload(sig, cres)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 652, in save_overload
+    self._save_overload(sig, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 662, in _save_overload
+    self._cache_file.save(key, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 466, in save
+    overloads = self._load_index()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 502, in _load_index
+    version = pickle.load(f)
+OSError: [Errno 116] Stale file handle
+vs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 176, in _compile_element_wise_function
+    cres = nb_func.compile(sig, **targetoptions)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 124, in compile
+    return self._compile_core(sig, flags, locals)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 163, in _compile_core
+    self.cache.save_overload(sig, cres)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 652, in save_overload
+    self._save_overload(sig, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 662, in _save_overload
+    self._cache_file.save(key, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 466, in save
+    overloads = self._load_index()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 503, in _load_index
+    data = f.read()
+OSError: [Errno 116] Stale file handle
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 17, in <module>
+    import quimb as qu
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/__init__.py", line 25, in <module>
+    from .core import (
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/core.py", line 507, in <module>
+    _nb_subtract_update_seq = vectorize(_sbtrct_sigs)(_nb_subtract_update_base)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/decorators.py", line 131, in wrap
+    vec.add(sig)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 175, in add
+    return self._compile_for_argtys(args, return_type)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 223, in _compile_for_argtys
+    cres, argtys, return_type = ufuncbuilder._compile_element_wise_function(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 176, in _compile_element_wise_function
+    cres = nb_func.compile(sig, **targetoptions)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 124, in compile
+    return self._compile_core(sig, flags, locals)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 163, in _compile_core
+    self.cache.save_overload(sig, cres)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 652, in save_overload
+    self._save_overload(sig, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 662, in _save_overload
+    self._cache_file.save(key, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 466, in save
+    overloads = self._load_index()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 502, in _load_index
+    version = pickle.load(f)
+OSError: [Errno 116] Stale file handle
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 17, in <module>
+    import quimb as qu
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/__init__.py", line 25, in <module>
+    from .core import (
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/core.py", line 507, in <module>
+    _nb_subtract_update_seq = vectorize(_sbtrct_sigs)(_nb_subtract_update_base)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/decorators.py", line 131, in wrap
+    vec.add(sig)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 175, in add
+    return self._compile_for_argtys(args, return_type)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 223, in _compile_for_argtys
+    cres, argtys, return_type = ufuncbuilder._compile_element_wise_function(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 176, in _compile_element_wise_function
+    cres = nb_func.compile(sig, **targetoptions)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 124, in compile
+    return self._compile_core(sig, flags, locals)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 151, in _compile_core
+    cres = self.cache.load_overload(sig, targetctx)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 635, in load_overload
+    return self._load_overload(sig, target_context)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 642, in _load_overload
+    data = self._cache_file.load(key)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 485, in load
+    overloads = self._load_index()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 501, in _load_index
+    with open(self._index_path, "rb") as f:
+OSError: [Errno 116] Stale file handle: '/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/__pycache__/core._nb_subtract_update_base-495.py38.nbi'
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 17, in <module>
+    import quimb as qu
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/__init__.py", line 25, in <module>
+    from .core import (
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/core.py", line 507, in <module>
+    _nb_subtract_update_seq = vectorize(_sbtrct_sigs)(_nb_subtract_update_base)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/decorators.py", line 131, in wrap
+    vec.add(sig)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 175, in add
+    return self._compile_for_argtys(args, return_type)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 223, in _compile_for_argtys
+    cres, argtys, return_type = ufuncbuilder._compile_element_wise_function(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 176, in _compile_element_wise_function
+    cres = nb_func.compile(sig, **targetoptions)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 124, in compile
+    return self._compile_core(sig, flags, locals)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 163, in _compile_core
+    self.cache.save_overload(sig, cres)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 652, in save_overload
+    self._save_overload(sig, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 662, in _save_overload
+    self._cache_file.save(key, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 466, in save
+    overloads = self._load_index()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 503, in _load_index
+    data = f.read()
+OSError: [Errno 116] Stale file handle
+srun: error: pcl-skx15: task 5: Exited with exit code 1
+srun: error: pcl-skx25: task 28: Exited with exit code 1
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 17, in <module>
+    import quimb as qu
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/__init__.py", line 25, in <module>
+    from .core import (
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/core.py", line 508, in <module>
+    _nb_subtract_update_par = pvectorize(_sbtrct_sigs)(_nb_subtract_update_base)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/decorators.py", line 131, in wrap
+    vec.add(sig)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 258, in add
+    cres, args, return_type = _compile_element_wise_function(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 176, in _compile_element_wise_function
+    cres = nb_func.compile(sig, **targetoptions)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 124, in compile
+    return self._compile_core(sig, flags, locals)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 163, in _compile_core
+    self.cache.save_overload(sig, cres)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 652, in save_overload
+    self._save_overload(sig, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 662, in _save_overload
+    self._cache_file.save(key, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 466, in save
+    overloads = self._load_index()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 502, in _load_index
+    version = pickle.load(f)
+OSError: [Errno 116] Stale file handle
+srun: error: pcl-skx25: tasks 29-31: Exited with exit code 1
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 17, in <module>
+    import quimb as qu
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/__init__.py", line 25, in <module>
+    from .core import (
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/core.py", line 508, in <module>
+    _nb_subtract_update_par = pvectorize(_sbtrct_sigs)(_nb_subtract_update_base)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/decorators.py", line 131, in wrap
+    vec.add(sig)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 258, in add
+    cres, args, return_type = _compile_element_wise_function(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 176, in _compile_element_wise_function
+    cres = nb_func.compile(sig, **targetoptions)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 124, in compile
+    return self._compile_core(sig, flags, locals)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 163, in _compile_core
+    self.cache.save_overload(sig, cres)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 652, in save_overload
+    self._save_overload(sig, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 662, in _save_overload
+    self._cache_file.save(key, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 466, in save
+    overloads = self._load_index()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 502, in _load_index
+    version = pickle.load(f)
+OSError: [Errno 116] Stale file handle
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 17, in <module>
+    import quimb as qu
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/__init__.py", line 25, in <module>
+    from .core import (
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/core.py", line 508, in <module>
+    _nb_subtract_update_par = pvectorize(_sbtrct_sigs)(_nb_subtract_update_base)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/decorators.py", line 131, in wrap
+    vec.add(sig)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 258, in add
+    cres, args, return_type = _compile_element_wise_function(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 176, in _compile_element_wise_function
+    cres = nb_func.compile(sig, **targetoptions)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 124, in compile
+    return self._compile_core(sig, flags, locals)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 151, in _compile_core
+    cres = self.cache.load_overload(sig, targetctx)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 635, in load_overload
+    return self._load_overload(sig, target_context)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 642, in _load_overload
+    data = self._cache_file.load(key)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 485, in load
+    overloads = self._load_index()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 502, in _load_index
+    version = pickle.load(f)
+OSError: [Errno 116] Stale file handle
+srun: error: pcl-skx14: task 2: Exited with exit code 1
+srun: error: pcl-skx22: task 16: Exited with exit code 1
+srun: error: pcl-skx22: task 17: Exited with exit code 1
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 17, in <module>
+    import quimb as qu
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/__init__.py", line 25, in <module>
+    from .core import (
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/core.py", line 531, in <module>
+    _nb_divide_update_seq = vectorize(_divd_sigs)(_nb_divide_update_base)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/decorators.py", line 131, in wrap
+    vec.add(sig)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 175, in add
+    return self._compile_for_argtys(args, return_type)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 223, in _compile_for_argtys
+    cres, argtys, return_type = ufuncbuilder._compile_element_wise_function(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 176, in _compile_element_wise_function
+    cres = nb_func.compile(sig, **targetoptions)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 124, in compile
+    return self._compile_core(sig, flags, locals)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 163, in _compile_core
+    self.cache.save_overload(sig, cres)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 652, in save_overload
+    self._save_overload(sig, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 662, in _save_overload
+    self._cache_file.save(key, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 466, in save
+    overloads = self._load_index()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 502, in _load_index
+    version = pickle.load(f)
+OSError: [Errno 116] Stale file handle
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 17, in <module>
+    import quimb as qu
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/__init__.py", line 25, in <module>
+    from .core import (
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/core.py", line 531, in <module>
+    _nb_divide_update_seq = vectorize(_divd_sigs)(_nb_divide_update_base)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/decorators.py", line 131, in wrap
+    vec.add(sig)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 175, in add
+    return self._compile_for_argtys(args, return_type)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 223, in _compile_for_argtys
+    cres, argtys, return_type = ufuncbuilder._compile_element_wise_function(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 176, in _compile_element_wise_function
+    cres = nb_func.compile(sig, **targetoptions)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 124, in compile
+    return self._compile_core(sig, flags, locals)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 163, in _compile_core
+    self.cache.save_overload(sig, cres)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 652, in save_overload
+    self._save_overload(sig, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 662, in _save_overload
+    self._cache_file.save(key, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 466, in save
+    overloads = self._load_index()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 502, in _load_index
+    version = pickle.load(f)
+OSError: [Errno 116] Stale file handle
+srun: error: pcl-skx15: task 4: Exited with exit code 1
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 17, in <module>
+    import quimb as qu
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/__init__.py", line 25, in <module>
+    from .core import (
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/core.py", line 531, in <module>
+    _nb_divide_update_seq = vectorize(_divd_sigs)(_nb_divide_update_base)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/decorators.py", line 131, in wrap
+    vec.add(sig)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 175, in add
+    return self._compile_for_argtys(args, return_type)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 223, in _compile_for_argtys
+    cres, argtys, return_type = ufuncbuilder._compile_element_wise_function(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 176, in _compile_element_wise_function
+    cres = nb_func.compile(sig, **targetoptions)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 124, in compile
+    return self._compile_core(sig, flags, locals)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 163, in _compile_core
+    self.cache.save_overload(sig, cres)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 652, in save_overload
+    self._save_overload(sig, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 662, in _save_overload
+    self._cache_file.save(key, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 466, in save
+    overloads = self._load_index()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 502, in _load_index
+    version = pickle.load(f)
+OSError: [Errno 116] Stale file handle
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 17, in <module>
+    import quimb as qu
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/__init__.py", line 25, in <module>
+    from .core import (
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/core.py", line 531, in <module>
+    _nb_divide_update_seq = vectorize(_divd_sigs)(_nb_divide_update_base)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/decorators.py", line 131, in wrap
+    vec.add(sig)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 175, in add
+    return self._compile_for_argtys(args, return_type)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/dufunc.py", line 223, in _compile_for_argtys
+    cres, argtys, return_type = ufuncbuilder._compile_element_wise_function(
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 176, in _compile_element_wise_function
+    cres = nb_func.compile(sig, **targetoptions)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 124, in compile
+    return self._compile_core(sig, flags, locals)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/np/ufunc/ufuncbuilder.py", line 163, in _compile_core
+    self.cache.save_overload(sig, cres)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 652, in save_overload
+    self._save_overload(sig, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 662, in _save_overload
+    self._cache_file.save(key, data)
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 466, in save
+    overloads = self._load_index()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/numba/core/caching.py", line 502, in _load_index
+    version = pickle.load(f)
+OSError: [Errno 116] Stale file handle
+srun: error: pcl-skx21: task 15: Exited with exit code 1
+srun: error: pcl-skx22: tasks 18-19: Exited with exit code 1
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/utils.py:167: Warning: The unitize_ function is deprecated in favor of isometrize_
+  warnings.warn(f"The {old_name} function is deprecated in favor "
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 398, in <module>
+    mera.unitize_()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/utils.py", line 169, in new_fn
+    return fn(*args, **kwargs)
+TypeError: 'partialmethod' object is not callable
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/utils.py:167: Warning: The unitize_ function is deprecated in favor of isometrize_
+  warnings.warn(f"The {old_name} function is deprecated in favor "
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/utils.py:167: Warning: The unitize_ function is deprecated in favor of isometrize_
+  warnings.warn(f"The {old_name} function is deprecated in favor "
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 398, in <module>
+    mera.unitize_()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/utils.py", line 169, in new_fn
+    return fn(*args, **kwargs)
+TypeError: 'partialmethod' object is not callable
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 398, in <module>
+    mera.unitize_()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/utils.py", line 169, in new_fn
+    return fn(*args, **kwargs)
+TypeError: 'partialmethod' object is not callable
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/utils.py:167: Warning: The unitize_ function is deprecated in favor of isometrize_
+  warnings.warn(f"The {old_name} function is deprecated in favor "
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 398, in <module>
+    mera.unitize_()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/utils.py", line 169, in new_fn
+    return fn(*args, **kwargs)
+TypeError: 'partialmethod' object is not callable
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/utils.py:167: Warning: The unitize_ function is deprecated in favor of isometrize_
+  warnings.warn(f"The {old_name} function is deprecated in favor "
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 398, in <module>
+    mera.unitize_()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/utils.py", line 169, in new_fn
+    return fn(*args, **kwargs)
+TypeError: 'partialmethod' object is not callable
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/utils.py:167: Warning: The unitize_ function is deprecated in favor of isometrize_
+  warnings.warn(f"The {old_name} function is deprecated in favor "
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 398, in <module>
+    mera.unitize_()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/utils.py", line 169, in new_fn
+    return fn(*args, **kwargs)
+TypeError: 'partialmethod' object is not callable
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/utils.py:167: Warning: The unitize_ function is deprecated in favor of isometrize_
+  warnings.warn(f"The {old_name} function is deprecated in favor "
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 398, in <module>
+    mera.unitize_()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/utils.py", line 169, in new_fn
+    return fn(*args, **kwargs)
+TypeError: 'partialmethod' object is not callable
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/utils.py:167: Warning: The unitize_ function is deprecated in favor of isometrize_
+  warnings.warn(f"The {old_name} function is deprecated in favor "
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 398, in <module>
+    mera.unitize_()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/utils.py", line 169, in new_fn
+    return fn(*args, **kwargs)
+TypeError: 'partialmethod' object is not callable
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/cotengra/hyperoptimizers/hyper.py:29: UserWarning: Couldn't import `kahypar` - skipping from default hyper optimizer and using basic `labels` method instead.
+  warnings.warn(
+/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/utils.py:167: Warning: The unitize_ function is deprecated in favor of isometrize_
+  warnings.warn(f"The {old_name} function is deprecated in favor "
+Traceback (most recent call last):
+  File "mera_sample_generator.py", line 398, in <module>
+    mera.unitize_()
+  File "/nfs_home/npsawaya/miniconda3/envs/pando/lib/python3.8/site-packages/quimb/utils.py", line 169, in new_fn
+    return fn(*args, **kwargs)
+TypeError: 'partialmethod' object is not callable
+srun: error: pcl-skx23: task 20: Exited with exit code 1
+srun: error: pcl-skx21: task 12: Exited with exit code 1
+srun: error: pcl-skx20: task 8: Exited with exit code 1
+srun: error: pcl-skx15: task 6: Exited with exit code 1
+srun: error: pcl-skx24: task 25: Exited with exit code 1
+srun: error: pcl-skx14: tasks 0-1,3: Exited with exit code 1
+srun: error: pcl-skx24: task 26: Exited with exit code 1

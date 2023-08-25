@@ -395,7 +395,7 @@ j0 = 1.0
 mera = qtn.MERA.rand(L, max_bond=mD, dtype=dtype)
 tag_mera(mera)
 
-mera.unitize_()
+# mera.unitize_()  # commented out by npds 2023-08-21
 
 coupling_vals = np.random.normal(j0, disorder_strength, L)
 
@@ -403,7 +403,7 @@ builder = qtn.SpinHam1D(S=1/2, cyclic=True)
 terms = {}
 
 runs = 100
-for run in runs:
+for run in range(runs):  # 'runs' --> 'range(runs)' npds 2023-08-21
     
     
     this_id =  ('MERA_' + os.environ['SLURM_JOB_ID']  + '_' + os.environ['SLURM_PROCID']
