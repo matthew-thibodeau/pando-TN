@@ -402,7 +402,7 @@ coupling_vals = np.random.normal(j0, disorder_strength, L)
 builder = qtn.SpinHam1D(S=1/2, cyclic=True)
 terms = {}
 
-runs = 100
+runs = 50
 for run in range(runs):  # 'runs' --> 'range(runs)' npds 2023-08-21
     
     
