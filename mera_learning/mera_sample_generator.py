@@ -397,7 +397,7 @@ tag_mera(mera)
 
 # mera.unitize_()  # commented out by npds 2023-08-21
 
-coupling_vals = np.random.normal(j0, disorder_strength, L)
+
 
 builder = qtn.SpinHam1D(S=1/2, cyclic=True)
 terms = {}
@@ -408,6 +408,8 @@ for run in range(runs):  # 'runs' --> 'range(runs)' npds 2023-08-21
     
     this_id =  ('MERA_' + os.environ['SLURM_JOB_ID']  + '_' + os.environ['SLURM_PROCID']
             + f'_{run}' + f'_L{L}_D{site_dim}')
+    
+    coupling_vals = np.random.normal(j0, disorder_strength, L)
     
     for i in range(0, L):
         if HAMTYPE == 'ising_random_fields':
@@ -560,13 +562,14 @@ for run in range(runs):  # 'runs' --> 'range(runs)' npds 2023-08-21
     for k,t in zip(range(len(emo.tensors)), emo.tensors):
         svd_bonds.append((k,t.shape))
     
-    with open(f'data/mera_data/{this_id}_bonds.pkl', 'wb') as f:
+    with open(f'data/mera_learning_data/{this_id}_bonds.pkl', 'wb') as f:
         pickle.dump(svd_bonds, f)
-    np.save(f'data/mera_data/{this_id}_errors_svd.npy', errors)
-    np.save(f'data/mera_data/{this_id}_errors_largest.npy', errors_largest)
+    np.save(f'data/mera_learning_data/{this_id}_errors_svd.npy', errors)
+    np.save(f'data/mera_learning_data/{this_id}_errors_largest.npy', errors_largest)
+    np.save(f'data/mera_learning_data/{this_id}_couplingvals.npy', coupling_vals)
     
     if run == 0:
-        with open(f'data/mera_data/{this_id}_hamtype.pkl', 'wb') as f:
+        with open(f'data/mera_learning_data/{this_id}_hamtype.pkl', 'wb') as f:
             pickle.dump([('HAMTYPE', HAMTYPE), ('disorder_strength', disorder_strength),
                          ('j0', j0)], f)
     
