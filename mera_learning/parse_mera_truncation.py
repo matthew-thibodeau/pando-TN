@@ -36,11 +36,13 @@ for s in hamtypefiles:
 
 all_errors = []
 error_comparison = []
+k = 0
 for uid in uids:
     e_svd = np.load(f'{datadir}{uid}_errors_svd.npy')
     e_largest = np.load(f'{datadir}{uid}_errors_largest.npy')
     all_errors.append([e_svd, e_largest])
     error_comparison.append(e_largest - e_svd) # positive == svd is working better
+    print(f'\r{100 * d / len(uids):.2f}% done loading...', end='')
     
 max_iterations = max([len(x) for x in error_comparison])
 ec_array = np.zeros((len(uids), max_iterations))
