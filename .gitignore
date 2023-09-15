@@ -2,6 +2,7 @@
 *.npy
 *.tar.gz
 *.h5
+*.pkl
 
 # npds
 npds/

@@ -24,7 +24,7 @@ hamtypefiles = [x for x in jobfiles if 'hamtype' in x]
 uids = []
 for s in hamtypefiles:
     with open(f'{datadir}{s}', 'rb') as f:
-        x = pickle.load(s)
+        x = pickle.load(f)
         if x[0][1] == hamtype:
             uids.append(s.split('hamtype')[0][:-1])
             
@@ -42,18 +42,22 @@ for uid in uids:
     e_largest = np.load(f'{datadir}{uid}_errors_largest.npy')
     all_errors.append([e_svd, e_largest])
     error_comparison.append(e_largest - e_svd) # positive == svd is working better
-    print(f'\r{100 * d / len(uids):.2f}% done loading...', end='')
+    print(f'\r{100 * k / len(uids):.2f}% done loading...', end='')
+    k+=1
     
 max_iterations = max([len(x) for x in error_comparison])
 ec_array = np.zeros((len(uids), max_iterations))
-for j in len(error_comparison):
+for j in range(len(error_comparison)):
     lj = error_comparison[j]
     ec_array[j,:len(lj)] = lj
     
-error_comparison_avg = np.mean(ec_array, axis=0)
+ec_cleaned = ec_array.copy()
+ec_cleaned[np.abs(ec_cleaned) > 1] = 0
+    
+error_comparison_avg = np.mean(ec_cleaned, axis=0)
 
 for k in range(len(error_comparison_avg)):
-    print(f'step {k}: error is {error_comparison_avg[k].3e}')
+    print(f'step {k}: error is {error_comparison_avg[k]:.3e}')
 
 
 
