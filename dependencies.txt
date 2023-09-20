@@ -1,0 +1,10 @@
+# should be installed via either pip, conda, or directly from github as appropriate
+
+numpy
+matplotlib
+
+quimb
+kahypar
+cotengra
+
+pytorch

@@ -29,10 +29,7 @@ def pad_to_twopower(v):
     return np.pad(v, (0,val - len(v)))
 
 def singlesite_matrices(basis_state_in, basis_state_out, nsites):
-    # zero_projector = np.array([[1,0],[0,0]])
-    # one_projector = np.array([[1,0],[0,0]])
     
-    # projectors = [zero_projector, one_projector]
     this_projectors = []
     inbits = bin(basis_state_in)[2:]#[::-1]
     outbits = bin(basis_state_out)[2:]#[::-1]
@@ -54,21 +51,6 @@ def projector_mpo(kernel_state, max_bond = 512):
     space_dim = kernel_state.shape[0]
     nsites = int(log2(space_dim))
     
-    # # this scaling sucks
-    # mpoterms = []
-    # for i in range(space_dim):
-    #     for j in range(space_dim):
-        
-    #         ssm = singlesite_matrices(i, j, nsites)
-    #         thisterm = kernel_state[i] * kernel_state[j] * qtn.MPO_product_operator(ssm)
-    #         mpoterms.append(-1 * thisterm)
-            
-    #         print(f'\rdone {(i* space_dim + j)/(space_dim ** 2)}', end='')
-    
-    # zero = qtn.MPO_zeros(nsites)
-    # # eyeterm = qtn.MPO_identity(nsites)
-    
-    # return sum(mpoterms, start = zero)
     upper = qtn.MatrixProductState.from_dense(kernel_state, dims = [2] * nsites, site_ind_id = 'u{}', max_bond = max_bond)
     lower = qtn.MatrixProductState.from_dense(kernel_state, dims = [2] * nsites, site_ind_id = 'l{}', max_bond = max_bond)
     
@@ -79,7 +61,6 @@ def projector_mpo(kernel_state, max_bond = 512):
     
     
     HMPO  = qtn.MatrixProductOperator.from_TN(H, upper_ind_id = 'u{}', lower_ind_id = 'l{}', cyclic = False)
-    # HMPO.compress_all(max_bond = max_bond ** 2)
     
     return -1 * HMPO
     
@@ -96,14 +77,17 @@ nsites = int(log2(space_dim))
 
 bd = None
 
-# H = projector_mpo(impn, bd)
-# dmrg = qtn.DMRG(H, int(bd / 2))
-# dmrg.solve(verbosity = 1)
-# dmrg.energy
+H = projector_mpo(impn, bd)
+dmrg = qtn.DMRG(H, int(bd / 2))
 
-# cv = np.abs(dmrg.state.to_dense()[:len(imv)])
-# imcd = (np.reshape(cv, imgdata.shape) / np.max(cv) * 255).astype('uint8')
-# imc = Image.fromarray(imcd)
-# print(dmrg.state.to_dense().T @ impn)
-
-upper = qtn.MatrixProductState.from_dense(impn, dims = [2] * nsites, site_ind_id = 'u{}', max_bond = bd)
+do_solve = False
+if do_solve:
+    dmrg.solve(verbosity = 1)
+    print(dmrg.energy)
+    
+    cv = np.abs(dmrg.state.to_dense()[:len(imv)])
+    imcd = (np.reshape(cv, imgdata.shape) / np.max(cv) * 255).astype('uint8')
+    imc = Image.fromarray(imcd)
+    print(dmrg.state.to_dense().T @ impn)
+    
+    upper = qtn.MatrixProductState.from_dense(impn, dims = [2] * nsites, site_ind_id = 'u{}', max_bond = bd)

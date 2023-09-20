@@ -18,4 +18,7 @@ for fname in os.listdir('data/mera_data'):
         x = np.load(f'data/mera_data/{fname}')
         ll_largest.append(x)
         
+ls = np.array(ll_svd)
+ll = np.array(ll_largest)
 
+diff = ls - ll
