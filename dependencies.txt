@@ -3,8 +3,8 @@
 numpy
 matplotlib
 
-quimb
-kahypar
-cotengra
+quimb: pip
+kahypar: pip
+cotengra: https://cotengra.readthedocs.io/en/latest/installation.html
 
-pytorch
+pytorch: pip
