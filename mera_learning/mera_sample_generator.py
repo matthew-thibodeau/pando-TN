@@ -379,7 +379,7 @@ opt = ctg.ReusableHyperOptimizer(
 
 
 # total length (currently must be power of 2)
-L = 2**5
+# L = 2**5
 
 # max bond dimension
 mD = 6

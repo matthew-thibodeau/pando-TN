@@ -703,7 +703,7 @@ def anneal_timestep(ttn, mpo, L, T, max_bond, rounds = 100, method='vertical'):
     energies = [sweep_tree(state, mpo, L, max_bond, reps = 2, method=method)[-1]]
     states = [state.copy()]
     all_energies = copy(energies)
-    for _ in range(rounds):
+    for k in range(rounds):
         x, _, _, _ = propose_move(state, max_bond)
         # e = sweep_subtree(x, mpo, L, max_bond, old_parent, reps = 1, method='vertical')[-1]
         # e = sweep_subtree(x, mpo, L, max_bond, new_parent, reps = 1, method='vertical')[-1]
@@ -715,13 +715,13 @@ def anneal_timestep(ttn, mpo, L, T, max_bond, rounds = 100, method='vertical'):
         keep = evaluate_move(e, energies[-1], T)
 
         if keep:
-            print('nice')
+            print(f'round {k}: kept')
             state = x
             states.append(x.copy())
             energies.append(e)
 
         else:
-            print('rip')
+            print(f'round {k}: did not keep')
 
     return states, energies, all_energies
 
