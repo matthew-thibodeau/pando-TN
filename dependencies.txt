@@ -1,10 +1,11 @@
-# should be installed via either pip, conda, or directly from github as appropriate
+# The dependencies should be installed via pip, conda, or directly from github as appropriate.
 
+# Anaconda v23.7.2 can install:
 numpy
 matplotlib
-
-quimb: pip
-kahypar: pip
+quimb
+pytorch
 cotengra: https://cotengra.readthedocs.io/en/latest/installation.html
 
-pytorch: pip
+# While pip is required for:
+kahypar: https://pypi.org/project/kahypar/
