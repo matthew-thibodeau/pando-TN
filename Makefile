@@ -7,7 +7,7 @@ COVERAGE=coverage
 #	python3 -m pip uninstall pando
 
 sa:
-	cd tnn_learning; python3 tnn_perform_SA.py
+	cd ttn_learning; python3 ttn_perform_SA.py
 
 utest:
 	$(COVERAGE) run --rcfile=.coveragerc -m pytest .
