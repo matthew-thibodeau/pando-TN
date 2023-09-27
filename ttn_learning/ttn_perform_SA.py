@@ -52,7 +52,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-L', '--nqubits', dest='L', default=L)
     parser.add_argument('-m', '--maxbond', dest='max_bond', default=max_bond)
-    parser.add_argument('-d', '--disorder', dest='disorder_strengh', default=disorder_strength)
+    parser.add_argument('-d', '--disorder', dest='disorder_strength', default=disorder_strength)
     args = parser.parse_args()
 
     L = int(args.L)
