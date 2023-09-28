@@ -8,7 +8,7 @@ Created on Tue Sep 20 15:38:58 2022
 from copy import copy
 import itertools
 import re
-from random import choice
+# from random import choice
 import numpy as np
 import quimb as qu
 import quimb.tensor as qtn
@@ -37,15 +37,17 @@ class TTN(qtn.TensorNetwork):
 
 
     @classmethod
-    def random_TTN(cls, leaves, phys_dim, bd_min, bd_max, degree_min = 3, degree_max = 3):
+    def random_TTN(cls, leaves, phys_dim, bd_min, bd_max, degree_min = 3, degree_max = 3, rng=None):
         # creates a random TTN
+        if rng is None:
+            rng = np.random.default_rng()
 
         # first, create the topology
-        parent_nodes, node_degrees, groups = cls._rand_tree_parents(leaves, degree_min, degree_max)
+        parent_nodes, node_degrees, groups = cls._rand_tree_parents(leaves, degree_min, degree_max, rng=rng)
         num_parents = len(node_degrees) - leaves
         # now create random tensors
 
-        bds = {k: [[np.random.randint(bd_min, bd_max + 1),1] for _ in range(node_degrees[k])]
+        bds = {k: [[rng.integers(bd_min, bd_max + 1),1] for _ in range(node_degrees[k])]
                       for k in range(num_parents + leaves)}
 
         for k in range(leaves):
@@ -79,10 +81,10 @@ class TTN(qtn.TensorNetwork):
         leaf_tensors = []
         for d in range(leaves):
             # pnum = parent_nodes[f'tree{d}'].split('tree')[1]
-            leaf_tensors.append(qtn.Tensor(qu.randn((phys_dim, bds[d][-1])), inds=(f'p{d}',
+            leaf_tensors.append(qtn.Tensor(rng.normal(size=(phys_dim, bds[d][-1])), inds=(f'p{d}',
                                     'dummy'),
                                    tags = f'tree{d}'))
-        parent_tensors = [qtn.Tensor(qu.randn(bds[d + leaves]),
+        parent_tensors = [qtn.Tensor(rng.normal(size=bds[d + leaves]),
                                      inds = [f'dummy{k}' for k in range(node_degrees[d + leaves])],
                                      tags=f'tree{d + leaves}')
                           for d in range(num_parents)]
@@ -127,7 +129,9 @@ class TTN(qtn.TensorNetwork):
 
 
     @staticmethod
-    def _rand_tree_groups(num_leaves, dmin, dmax):
+    def _rand_tree_groups(num_leaves, dmin, dmax, rng=None):
+        if rng is None:
+            rng = np.random.default_rng()
         groups = []
         # add the first layer to the tree
         layer = []
@@ -136,7 +140,7 @@ class TTN(qtn.TensorNetwork):
             num_layer = remaining_heads
             layer = []
             while sum(layer) < num_layer:
-                layer.append(np.random.randint(dmin - 1, dmax))
+                layer.append(rng.integers(dmin - 1, dmax))
             # fix the last slot
             layer[-1] = num_layer - sum(layer[:-1])
             groups.append(copy(layer))
@@ -146,8 +150,10 @@ class TTN(qtn.TensorNetwork):
         return groups
 
     @classmethod
-    def _rand_tree_parents(cls, num_leaves, dmin, dmax):
-        groups = cls._rand_tree_groups(num_leaves, dmin, dmax)
+    def _rand_tree_parents(cls, num_leaves, dmin, dmax, rng=None):
+        if rng is None:
+            rng = np.random.default_rng()
+        groups = cls._rand_tree_groups(num_leaves, dmin, dmax, rng=rng)
         # print(groups)
         parent_dict = {}
 
@@ -639,14 +645,16 @@ def sweep_tree(ttn, mpo, L, max_bond, reps = 3, reverse = True, method='vertical
     ttn.canonize_top(max_bond)
     return sweep_subtree(ttn, mpo, L, max_bond, ttn.get_top_parent(), reps, reverse, method)
 
-def evaluate_move(new_energy, prior_energy, T):
+def evaluate_move(new_energy, prior_energy, T, rng=None):
 
-    x = np.random.rand(1)[0]
+    if rng is None:
+        rng = np.random.default_rng()
+    x = rng.random()
 
     return bool(x < np.exp(-(new_energy - prior_energy)/T))
 
 
-def propose_move(ttn, max_bond, movetype='shift_split'):
+def propose_move(ttn, max_bond, movetype='shift_split', rng=None):
 
     leaves = list(ttn.get_leaves())
     startnodes = [ttn.get_tree_tag(x) for x in ttn.tensors
@@ -655,11 +663,13 @@ def propose_move(ttn, max_bond, movetype='shift_split'):
     # print(startnodes, endnodes, leaves)
 
     ttn_c = ttn.copy()
+    if rng is None:
+        rng = np.random.default_rng()
 
     if movetype == 'shift_split':
         # preserves coordination number of the TTN
-
-        start = choice(startnodes)
+        
+        start = rng.choice(startnodes)
         if start in endnodes:
             endnodes.pop(endnodes.index(start))
         parent = ttn_c.get_parent(start)
@@ -673,7 +683,7 @@ def propose_move(ttn, max_bond, movetype='shift_split'):
         old_parent = ttn_c.get_parent(start)
 
         if len(endnodes) > 0:
-            end = choice(endnodes)
+            end = rng.choice(endnodes)
 
             print(start, end)
 
@@ -682,7 +692,7 @@ def propose_move(ttn, max_bond, movetype='shift_split'):
             ttn_c.transport_subtree(start, end, max_bond)
 
             if len(children) > 0:
-                end_fuse = choice(children)
+                end_fuse = rng.choice(children)
                 print(end_fuse)
                 # ttn_c.draw(color=(start, end_fuse))
                 ttn_c.fuse_subtrees(start, end_fuse, max_bond)
@@ -697,14 +707,14 @@ def propose_move(ttn, max_bond, movetype='shift_split'):
     moved_node = start
     return ttn_c, moved_node, old_parent, new_parent
 
-def anneal_timestep(ttn, mpo, L, T, max_bond, rounds = 100, method='vertical'):
+def anneal_timestep(ttn, mpo, L, T, max_bond, rounds = 100, method='vertical', rng=None):
 
     state = ttn.copy()
     energies = [sweep_tree(state, mpo, L, max_bond, reps = 2, method=method)[-1]]
     states = [state.copy()]
     all_energies = copy(energies)
     for k in range(rounds):
-        x, _, _, _ = propose_move(state, max_bond)
+        x, _, _, _ = propose_move(state, max_bond, rng=rng)
         # e = sweep_subtree(x, mpo, L, max_bond, old_parent, reps = 1, method='vertical')[-1]
         # e = sweep_subtree(x, mpo, L, max_bond, new_parent, reps = 1, method='vertical')[-1]
         e = sweep_tree(x, mpo, L, max_bond, reps = 1, method=method)[-1]
@@ -712,7 +722,7 @@ def anneal_timestep(ttn, mpo, L, T, max_bond, rounds = 100, method='vertical'):
         all_energies.append(e)
 
         x.condition_tree()
-        keep = evaluate_move(e, energies[-1], T)
+        keep = evaluate_move(e, energies[-1], T, rng=rng)
 
         if keep:
             print(f'round {k}: kept')
@@ -727,19 +737,19 @@ def anneal_timestep(ttn, mpo, L, T, max_bond, rounds = 100, method='vertical'):
 
 
 
-def optimize_MPO(H, max_bond, rounds = 10, min_coord = 3, max_coord = 3):
+def optimize_MPO(H, max_bond, rounds = 10, min_coord = 3, max_coord = 3, rng = None):
 
     H.add_tag('_HAM')
 
     L = H.L
-    x = TTN.random_TTN(L, 2, max_bond, max_bond, min_coord, max_coord)
+    x = TTN.random_TTN(L, 2, max_bond, max_bond, min_coord, max_coord, rng=rng)
 
     #init_e = energy(x,H) ^ ...
     # init_e = sweep_tree(x, H, L, max_bond, reps = 2)
 
     temp = 1e-2
     states, energies, all_energies = anneal_timestep(x, H, L, temp,
-                                                     max_bond, rounds, method='vertical')
+                                                     max_bond, rounds, method='vertical', rng=rng)
 
 
 

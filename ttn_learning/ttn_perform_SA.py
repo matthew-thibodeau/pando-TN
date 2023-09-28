@@ -105,7 +105,7 @@ if __name__ == "__main__":
         builder[L-2, L-1] += coupling_vals[L-1], 'I', 'Z'
         H_mpo = builder.build_mpo(L)
     
-        states, energies, all_energies = ttn.optimize_MPO(H_mpo, max_bond, rounds = 1, min_coord = 3, max_coord = 3)
+        states, energies, all_energies = ttn.optimize_MPO(H_mpo, max_bond, rounds = 1, min_coord = 3, max_coord = 3, rng = rng)
         adj_matrices = [coo_matrix(x.get_adjacency_matrix()) for x in states]
     
         # save the data
