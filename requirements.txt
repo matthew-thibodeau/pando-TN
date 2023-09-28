@@ -1,0 +1,16 @@
+# The dependencies should be installed via pip, conda, or directly from github as appropriate.
+
+# Most dependencies can be installed directly in Anaconda (tested with v23.7.2) using "conda install":
+numpy
+matplotlib
+quimb
+torch
+# conda name is pytorch
+pytest
+coverage
+cotengra
+
+# Extra info:
+# cotengra: https://cotengra.readthedocs.io/en/latest/installation.html
+
+-r other-requirements.txt
