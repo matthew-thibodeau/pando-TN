@@ -9,8 +9,16 @@ Arguments are:
 
 """
 import sys
+import os
+import time
 import argparse
+import pickle
+
+
 import numpy as np
+from scipy.sparse import coo_matrix
+from numpy.random import SeedSequence, PCG64
+
 
 sys.path.insert(0, '../ttn_demo')
 
@@ -43,37 +51,84 @@ j0 = 1
 L = 16
 max_bond = 3
 disorder_strength = 1.0
+site_dim = 2
+num_runs = 1
+rng_seed = None
 
 ####################################################################
 # Main
 ####################################################################
 
 if __name__ == "__main__":
+    
+    data_path = 'data/TTN_SA_data'
+    
+    # make sure data path exists
+    if not os.path.isdir(data_path):
+        os.makedirs(data_path)
+    
     parser = argparse.ArgumentParser()
     parser.add_argument('-L', '--nqubits', dest='L', default=L)
     parser.add_argument('-m', '--maxbond', dest='max_bond', default=max_bond)
     parser.add_argument('-d', '--disorder', dest='disorder_strength', default=disorder_strength)
+    parser.add_argument('-s', '--rngseed', dest='rng_seed', default=rng_seed)
+    parser.add_argument('-r', '--runs', dest='num_runs', default=num_runs)
     args = parser.parse_args()
 
     L = int(args.L)
     max_bond = int(args.max_bond)
     disorder_strength = float(args.disorder_strength)
+    
+    # if SLURM environment variables are not present, assume this is a local test run
+    slurm_jobid = os.environ.get('SLURM_JOB_ID', int(time.time()))
+    slurm_procid = os.environ.get('SLURM_PROCID', int(time.time()))
+    
+    for run in range(num_runs):
+        this_id =  f'TTN_SA_{slurm_jobid}_{slurm_procid}_{run}_L{L}_D{site_dim}'
+        
+        
+        # generate randomness
+        ss = SeedSequence(rng_seed)
+        rng = np.random.Generator(PCG64(ss))
+        
+        coupling_vals = rng.normal(j0, disorder_strength, L)
+    
+        builder = qtn.SpinHam1D(S=1/2, cyclic=False)
+        terms = {}
+        HAMTYPE = 'ising_random_fields'
+        for i in range(0, L-1):
+            builder[i, i+1] += -1.0, 'X', 'X'
+            builder[i, i+1] += coupling_vals[i], 'Z', 'I'
+    
+    
+            terms[(i, (i+1)%L)] =  -1 * X2 + coupling_vals[i] * Z1I2
+        builder[L-2, L-1] += coupling_vals[L-1], 'I', 'Z'
+        H_mpo = builder.build_mpo(L)
+    
+        states, energies, all_energies = ttn.optimize_MPO(H_mpo, max_bond, rounds = 1, min_coord = 3, max_coord = 3)
+        adj_matrices = [coo_matrix(x.get_adjacency_matrix()) for x in states]
+    
+        # save the data
+    
+        with open(f'{data_path}/{this_id}_acceptedstates.pkl', 'wb') as f:
+            pickle.dump(adj_matrices, f)
+        with open(f'{data_path}/{this_id}_acceptedenergies.pkl', 'wb') as f:
+            pickle.dump(energies, f)
+        with open(f'{data_path}/{this_id}_proposedenergies.pkl', 'wb') as f:
+            pickle.dump(all_energies, f)
+        with open(f'{data_path}/{this_id}_randomseed.pkl', 'wb') as f:
+            pickle.dump(ss.entropy, f)
+            
+        if run == 0:
+            with open(f'{data_path}/{this_id}_hamtype.pkl', 'wb') as f:
+                pickle.dump([('HAMTYPE', HAMTYPE), ('disorder_strength', disorder_strength),
+                             ('j0', j0)], f)
 
 
-    coupling_vals = np.random.normal(j0, disorder_strength, L)
-
-    builder = qtn.SpinHam1D(S=1/2, cyclic=False)
-    terms = {}
-
-    for i in range(0, L):
-        builder[i, i+1] += -1.0, 'X', 'X'
-        builder[i, i+1] += coupling_vals[i], 'Z', 'I'
 
 
-        terms[(i, (i+1)%L)] =  -1 * X2 + coupling_vals[i] * Z1I2
 
-    H_mpo = builder.build_mpo(L)
 
-    states, energies, all_energies, init_e =  ttn.optimize_MPO(H_mpo, max_bond, rounds = 10, min_coord = 3, max_coord = 3)
+
 
     

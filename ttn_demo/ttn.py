@@ -241,7 +241,7 @@ class TTN(qtn.TensorNetwork):
     def get_adjacency_matrix(self):
         self.canonize_labels()
         nt = self.num_tensors
-        adj = np.zeros((nt, nt), dtype=int)
+        adj = np.zeros((nt, nt), dtype='int16')
         for ctag,ptag in self._parents.items():
             if ptag is not None:
                 c, p = self[ctag], self[ptag]
@@ -735,7 +735,7 @@ def optimize_MPO(H, max_bond, rounds = 10, min_coord = 3, max_coord = 3):
     x = TTN.random_TTN(L, 2, max_bond, max_bond, min_coord, max_coord)
 
     #init_e = energy(x,H) ^ ...
-    init_e = sweep_tree(x, H, L, max_bond, reps = 2)
+    # init_e = sweep_tree(x, H, L, max_bond, reps = 2)
 
     temp = 1e-2
     states, energies, all_energies = anneal_timestep(x, H, L, temp,
@@ -743,7 +743,7 @@ def optimize_MPO(H, max_bond, rounds = 10, min_coord = 3, max_coord = 3):
 
 
 
-    return states, energies, all_energies, init_e
+    return states, energies, all_energies
 
 
 def minimize_stream(series, optim_func = min):
