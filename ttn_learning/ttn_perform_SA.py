@@ -94,17 +94,17 @@ if __name__ == "__main__":
     
     for run in range(num_runs):
         this_id =  f'TTN_SA_{slurm_jobid}_{slurm_procid}_{run}_L{L}_D{site_dim}'
-
-        coupling_vals = rng.normal(j0, disorder_strength, L)
+        
+        hamiltonian_vals = rng.normal(j0, disorder_strength, L)
     
         builder = qtn.SpinHam1D(S=1/2, cyclic=False)
         terms = {}
         HAMTYPE = 'ising_random_fields'
         for i in range(0, L-1):
             builder[i, i+1] += -1.0, 'X', 'X'
-            builder[i, i+1] += coupling_vals[i], 'Z', 'I'
-            terms[(i, (i+1)%L)] =  -1 * X2 + coupling_vals[i] * Z1I2
-        builder[L-2, L-1] += coupling_vals[L-1], 'I', 'Z'
+            builder[i, i+1] += hamiltonian_vals[i], 'Z', 'I'
+            terms[(i, (i+1)%L)] =  -1 * X2 + hamiltonian_vals[i] * Z1I2
+        builder[L-2, L-1] += hamiltonian_vals[L-1], 'I', 'Z'
         H_mpo = builder.build_mpo(L)
     
         states, energies, all_energies = ttn.optimize_MPO(H_mpo, max_bond, rounds = num_opt_rounds,
@@ -137,6 +137,8 @@ if __name__ == "__main__":
             pickle.dump(all_energies, f)
         with open(f'{data_path}/{this_id}_randomseed.pkl', 'wb') as f:
             pickle.dump(ss.entropy, f)
+        with open(f'{data_path}/{this_id}_hamiltonian_vals.pkl', 'wb') as f:
+            pickle.dump(hamiltonian_vals, f)
             
         if run == 0:
             # FIXME: Are we saving only the result of the first run because this is common between all runs?
