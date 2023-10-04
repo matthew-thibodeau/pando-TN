@@ -18,11 +18,10 @@ import time
 import argparse
 import pickle
 
-
 import numpy as np
-from scipy.sparse import coo_matrix
 from numpy.random import SeedSequence, PCG64
-
+from scipy.sparse import coo_matrix
+import pandas as pd
 
 sys.path.insert(0, '../ttn_demo')
 
@@ -36,6 +35,8 @@ import quimb.tensor as qtn
 # Default values and utility variables.
 ####################################################################
 
+data_path = 'data/TTN_SA_data'
+    
 # Set double precision.
 dtype = 'float32'
 
@@ -56,8 +57,8 @@ L = 16
 max_bond = 3
 disorder_strength = 1.0
 site_dim = 2
-num_runs = 1 # TODO: consider calling it num_hams
-num_opt_rounds = 10
+num_runs = 1
+num_opt_rounds = 20
 rng_seed = 7777
 
 ####################################################################
@@ -65,10 +66,7 @@ rng_seed = 7777
 ####################################################################
 
 if __name__ == "__main__":
-    
-    data_path = 'data/TTN_SA_data'
-    
-    # make sure data path exists
+    # Make sure data path exists
     if not os.path.isdir(data_path):
         os.makedirs(data_path)
     
@@ -86,7 +84,6 @@ if __name__ == "__main__":
     rng_seed = int(args.rng_seed)
     num_runs = int(args.num_runs)
     
-    
     # Generate randomness.
     ss = SeedSequence(rng_seed)
     rng = np.random.Generator(PCG64(ss))
@@ -95,11 +92,9 @@ if __name__ == "__main__":
     slurm_jobid = os.environ.get('SLURM_JOB_ID', int(time.time()))
     slurm_procid = os.environ.get('SLURM_PROCID', int(time.time()))
     
-    # TODO: Here a 'run' correponds to a different Hamiltonian, right?
     for run in range(num_runs):
         this_id =  f'TTN_SA_{slurm_jobid}_{slurm_procid}_{run}_L{L}_D{site_dim}'
-        
-        
+
         coupling_vals = rng.normal(j0, disorder_strength, L)
     
         builder = qtn.SpinHam1D(S=1/2, cyclic=False)
@@ -116,6 +111,23 @@ if __name__ == "__main__":
                                                           min_coord = 3, max_coord = 3, rng = rng)
         adj_matrices = [coo_matrix(x.get_adjacency_matrix()) for x in states]
     
+        # From list to pandas dataframe.
+        id_e = 0
+        all_states = []
+        assert len(states) == len(energies)
+        for e in all_energies:
+            if energies[id_e] == e:
+                all_states.append(states[id_e])
+                id_e += 1
+            else:
+                all_states.append(None)
+        assert id_e == len(energies)
+        df = pd.DataFrame({'state': all_states, 'energy': all_energies})
+        df.attrs = {'seed': ss.entropy}
+        #print(df)
+        with open(f'{data_path}/{this_id}_summary.pkl', 'wb') as f:
+            df.to_pickle(f)
+
         # Save the data.
         with open(f'{data_path}/{this_id}_acceptedstates.pkl', 'wb') as f:
             pickle.dump(adj_matrices, f)
@@ -127,7 +139,8 @@ if __name__ == "__main__":
             pickle.dump(ss.entropy, f)
             
         if run == 0:
-            # TODO: Are we saving only the result of the first run?
+            # FIXME: Are we saving only the result of the first run because this is common between all runs?
+            #        Then 
             with open(f'{data_path}/{this_id}_hamtype.pkl', 'wb') as f:
                 pickle.dump([('HAMTYPE', HAMTYPE), ('disorder_strength', disorder_strength),
                              ('j0', j0)], f)
