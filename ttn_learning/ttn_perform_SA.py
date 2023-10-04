@@ -86,6 +86,11 @@ if __name__ == "__main__":
     rng_seed = int(args.rng_seed)
     num_runs = int(args.num_runs)
     
+    
+    # Generate randomness.
+    ss = SeedSequence(rng_seed)
+    rng = np.random.Generator(PCG64(ss))
+    
     # If SLURM environment variables are not present, assume this is a local test run.
     slurm_jobid = os.environ.get('SLURM_JOB_ID', int(time.time()))
     slurm_procid = os.environ.get('SLURM_PROCID', int(time.time()))
@@ -94,9 +99,6 @@ if __name__ == "__main__":
     for run in range(num_runs):
         this_id =  f'TTN_SA_{slurm_jobid}_{slurm_procid}_{run}_L{L}_D{site_dim}'
         
-        # Generate randomness.
-        ss = SeedSequence(rng_seed)
-        rng = np.random.Generator(PCG64(ss))
         
         coupling_vals = rng.normal(j0, disorder_strength, L)
     
