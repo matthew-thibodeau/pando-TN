@@ -27,6 +27,7 @@ sys.path.insert(0, '../ttn_demo')
 
 import ttn
 import ttn_q_learn
+from utils import from_optimization_run_to_dataframe
 
 import quimb as qu
 import quimb.tensor as qtn
@@ -35,7 +36,8 @@ import quimb.tensor as qtn
 # Default values and utility variables.
 ####################################################################
 
-data_path = 'data/TTN_SA_data'
+today = '2023-10-05'
+data_path = f'data/{today}_TTN_SA'
     
 # Set double precision.
 dtype = 'float32'
@@ -76,6 +78,7 @@ if __name__ == "__main__":
     parser.add_argument('-d', '--disorder', dest='disorder_strength', default=disorder_strength)
     parser.add_argument('-s', '--rngseed', dest='rng_seed', default=rng_seed)
     parser.add_argument('-r', '--runs', dest='num_runs', default=num_runs)
+    parser.add_argument('-i', '--iterations', dest='num_opt_rounds', default=num_opt_rounds)
     args = parser.parse_args()
 
     L = int(args.L)
@@ -83,6 +86,17 @@ if __name__ == "__main__":
     disorder_strength = float(args.disorder_strength)
     rng_seed = int(args.rng_seed)
     num_runs = int(args.num_runs)
+    num_opt_rounds = int(args.num_opt_rounds)
+
+    # Print values of the program arguments:
+    print('\nOptimization with Simulated Annealing.\n',
+          f'L: Hamiltonians have {L} qubits\n',
+          f'm: max bond dimension is {max_bond}\n',
+          f'd: disorder has strength {disorder_strength}\n',
+          f's: seed of RNG is {rng_seed}\n',
+          f'r: number of runs, i.e. of random values for the field, is {num_runs}\n',
+          f'i: number of iterations of each SA optimization is {num_opt_rounds}\n'
+          )
     
     # Generate randomness.
     ss = SeedSequence(rng_seed)
@@ -93,6 +107,7 @@ if __name__ == "__main__":
     slurm_procid = os.environ.get('SLURM_PROCID', int(time.time()))
     
     for run in range(num_runs):
+        print(f'---- run {run} ----')
         this_id =  f'TTN_SA_{slurm_jobid}_{slurm_procid}_{run}_L{L}_D{site_dim}'
         
         hamiltonian_vals = rng.normal(j0, disorder_strength, L)
@@ -111,47 +126,31 @@ if __name__ == "__main__":
                                                           min_coord = 3, max_coord = 3, rng = rng)
         adj_matrices = [coo_matrix(x.get_adjacency_matrix()) for x in states]
     
-        # From list to pandas dataframe.
-        id_e = 0
-        all_states = []
-        assert len(states) == len(energies)
-        for e in all_energies:
-            if energies[id_e] == e:
-                all_states.append(states[id_e])
-                id_e += 1
-            else:
-                all_states.append(None)
-        assert id_e == len(energies)
-        df = pd.DataFrame({'state': all_states, 'energy': all_energies})
-        df.attrs = {'seed': ss.entropy}
+        # From lists to pandas dataframe.
+        df = from_optimization_run_to_dataframe(states, energies, all_energies,
+                                                ss.entropy, hamiltonian_vals)
         #print(df)
-        with open(f'{data_path}/{this_id}_summary.pkl', 'wb') as f:
-            df.to_pickle(f)
 
         # Save the data.
-        with open(f'{data_path}/{this_id}_acceptedstates.pkl', 'wb') as f:
-            pickle.dump(adj_matrices, f)
-        with open(f'{data_path}/{this_id}_acceptedenergies.pkl', 'wb') as f:
-            pickle.dump(energies, f)
-        with open(f'{data_path}/{this_id}_proposedenergies.pkl', 'wb') as f:
-            pickle.dump(all_energies, f)
-        with open(f'{data_path}/{this_id}_randomseed.pkl', 'wb') as f:
-            pickle.dump(ss.entropy, f)
+        with open(f'{data_path}/{this_id}_summary.pkl', 'wb') as f:
+            df.to_pickle(f)
         with open(f'{data_path}/{this_id}_hamiltonian_vals.pkl', 'wb') as f:
             pickle.dump(hamiltonian_vals, f)
+        if False:
+            with open(f'{data_path}/{this_id}_acceptedstates.pkl', 'wb') as f:
+                pickle.dump(adj_matrices, f)
+            with open(f'{data_path}/{this_id}_acceptedenergies.pkl', 'wb') as f:
+                pickle.dump(energies, f)
+            with open(f'{data_path}/{this_id}_proposedenergies.pkl', 'wb') as f:
+                pickle.dump(all_energies, f)
+            with open(f'{data_path}/{this_id}_randomseed.pkl', 'wb') as f:
+                pickle.dump(ss.entropy, f)
             
         if run == 0:
             # FIXME: Are we saving only the result of the first run because this is common between all runs?
-            #        Then 
             with open(f'{data_path}/{this_id}_hamtype.pkl', 'wb') as f:
                 pickle.dump([('HAMTYPE', HAMTYPE), ('disorder_strength', disorder_strength),
                              ('j0', j0)], f)
 
-
-
-
-
-
-
-
+    print('---- The end ----')
     
