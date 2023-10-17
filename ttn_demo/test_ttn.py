@@ -188,8 +188,11 @@ def test_get_path():
     x = TTN.random_TTN(L, phys_dim, min_bond, max_bond)
     last_leaf = list(x.get_leaves())[-1]
     path = list(x.get_path('tree0', last_leaf))
-    expected = ['tree0'] + list(x.get_all_parents('tree0')) + list(reversed(
-        x.get_all_parents(last_leaf)))[1:] + [last_leaf]
+    firstparents = list(x.get_all_parents('tree0'))
+    lastparents = list(x.get_all_parents(last_leaf))
+    intersection = next((x for x in lastparents if x in firstparents))
+    expected = ['tree0'] + (firstparents[:firstparents.index(intersection) + 1] +
+        list(reversed(lastparents[:lastparents.index(intersection)]))) + [last_leaf]
     assert path == expected
 
                 
@@ -215,8 +218,7 @@ def test_local_ham():
     A = qtn.MPO_rand_herm(L, bond_dim=10, tags=['_HAM'])
     x = TTN.random_TTN(L, phys_dim, min_bond, max_bond)
     test_site = 'tree0'
-    
-    h, hm, ki, bi, xi = local_ham(A, x, test_site)
+    h, hm, ki, bi, xi = local_ham(A, x, test_site, max_bond)
     
     assert list(h.shape) == [phys_dim] * 4
     
@@ -237,8 +239,7 @@ def test_sweep_tree():
 def test_propose_move():
     
     x = TTN.random_TTN(L, phys_dim, min_bond, max_bond)
-    xp, moved_node, old_parent, new_parent = propose_move(x)
-    
+    xp, moved_node, old_parent, new_parent = propose_move(x, max_bond)
     assert x.get_parent(moved_node) == old_parent
     assert xp.get_parent(moved_node) == new_parent
     
@@ -246,7 +247,7 @@ def test_propose_move():
     
     
     
-
+test_get_path()
     
     
     
