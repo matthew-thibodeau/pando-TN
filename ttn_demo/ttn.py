@@ -737,7 +737,7 @@ def anneal_timestep(ttn, mpo, L, T, max_bond, rounds = 100, method='vertical', r
 
 
 
-def optimize_MPO(H, max_bond, rounds = 10, min_coord = 3, max_coord = 3, rng = None):
+def optimize_MPO(H, max_bond, rounds = 10, min_coord = 3, max_coord = 3, rng = None, temp = 1e-2):
 
     H.add_tag('_HAM')
 
@@ -747,7 +747,6 @@ def optimize_MPO(H, max_bond, rounds = 10, min_coord = 3, max_coord = 3, rng = N
     #init_e = energy(x,H) ^ ...
     # init_e = sweep_tree(x, H, L, max_bond, reps = 2)
 
-    temp = 1e-2
     states, energies, all_energies = anneal_timestep(x, H, L, temp,
                                                      max_bond, rounds, method='vertical', rng=rng)
 

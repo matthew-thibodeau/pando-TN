@@ -60,8 +60,9 @@ max_bond = 3
 disorder_strength = 1.0
 site_dim = 2
 num_runs = 1
-num_opt_rounds = 20
+num_opt_rounds = 100
 rng_seed = 7777
+sa_temp = 1e-4
 
 ####################################################################
 # Main
@@ -79,14 +80,16 @@ if __name__ == "__main__":
     parser.add_argument('-s', '--rngseed', dest='rng_seed', default=rng_seed)
     parser.add_argument('-r', '--runs', dest='num_runs', default=num_runs)
     parser.add_argument('-i', '--iterations', dest='num_opt_rounds', default=num_opt_rounds)
+    parser.add_argument('-T', '--temperature', dest='sa_temp', default=sa_temp)
     args = parser.parse_args()
-
+    
     L = int(args.L)
     max_bond = int(args.max_bond)
     disorder_strength = float(args.disorder_strength)
     rng_seed = int(args.rng_seed)
     num_runs = int(args.num_runs)
     num_opt_rounds = int(args.num_opt_rounds)
+    sa_temp = float(args.sa_temp)
 
     # Print values of the program arguments:
     print('\nOptimization with Simulated Annealing.\n',
@@ -96,6 +99,7 @@ if __name__ == "__main__":
           f's: seed of RNG is {rng_seed}\n',
           f'r: number of runs, i.e. of random values for the field, is {num_runs}\n',
           f'i: number of iterations of each SA optimization is {num_opt_rounds}\n'
+          f'T: SA optimization temperature is {sa_temp:.3e}\n'
           )
     
     # Generate randomness.
@@ -123,7 +127,7 @@ if __name__ == "__main__":
         H_mpo = builder.build_mpo(L)
     
         states, energies, all_energies = ttn.optimize_MPO(H_mpo, max_bond, rounds = num_opt_rounds,
-                                                          min_coord = 3, max_coord = 3, rng = rng)
+                                                          min_coord = 3, max_coord = 3, rng = rng, temp = sa_temp)
         adj_matrices = [coo_matrix(x.get_adjacency_matrix()) for x in states]
     
         # From lists to pandas dataframe.
