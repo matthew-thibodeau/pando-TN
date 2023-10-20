@@ -135,7 +135,7 @@ if __name__ == "__main__":
         H_mpo = builder.build_mpo(L)
         
         for max_bond in bond_range:
-            this_id =  f'TTN_SA_{slurm_jobid}_{slurm_procid}_{run}_L{L}_D{site_dim}'
+            this_id =  f'TTN_SA_{slurm_jobid}_{slurm_procid}_{run}_L{L}_D{site_dim}_m{max_bond}'
     
             states, energies, all_energies = ttn.optimize_MPO(H_mpo, max_bond, rounds = num_opt_rounds,
                                                               min_coord = 3, max_coord = 3, rng = rng, temp = sa_temp)
@@ -163,6 +163,7 @@ if __name__ == "__main__":
                 
             if run == 0:
                 # FIXME: Are we saving only the result of the first run because this is common between all runs?
+                # answer: yes!
                 with open(f'{data_path}/{this_id}_hamtype.pkl', 'wb') as f:
                     pickle.dump([('HAMTYPE', HAMTYPE), ('disorder_strength', disorder_strength),
                                  ('j0', j0)], f)
