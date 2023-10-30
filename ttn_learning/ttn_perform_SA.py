@@ -36,8 +36,7 @@ import quimb.tensor as qtn
 # Default values and utility variables.
 ####################################################################
 
-today = '2023-10-05'
-data_path = f'data/{today}_TTN_SA'
+today = '2023-10-30'
     
 # Set double precision.
 dtype = 'float32'
@@ -71,10 +70,6 @@ sa_temp = 1e-4
 ####################################################################
 
 if __name__ == "__main__":
-    # Make sure data path exists
-    if not os.path.isdir(data_path):
-        os.makedirs(data_path)
-    
     parser = argparse.ArgumentParser()
     parser.add_argument('-L', '--nqubits', dest='L', default=L)
     parser.add_argument('-m', '--minbond', dest='min_bond', default=min_bond)
@@ -85,6 +80,7 @@ if __name__ == "__main__":
     parser.add_argument('-r', '--runs', dest='num_runs', default=num_runs)
     parser.add_argument('-i', '--iterations', dest='num_opt_rounds', default=num_opt_rounds)
     parser.add_argument('-T', '--temperature', dest='sa_temp', default=sa_temp)
+    parser.add_argument('--today', dest='today', default=today)
     args = parser.parse_args()
     
     L = int(args.L)
@@ -93,6 +89,7 @@ if __name__ == "__main__":
     num_runs = int(args.num_runs)
     num_opt_rounds = int(args.num_opt_rounds)
     sa_temp = float(args.sa_temp)
+    today = args.today
     
     min_bond = int(args.min_bond)
     num_bonds = int(args.num_bonds)
@@ -107,9 +104,15 @@ if __name__ == "__main__":
           f'd: disorder has strength {disorder_strength}\n',
           f's: seed of RNG is {rng_seed}\n',
           f'r: number of runs, i.e. of random values for the field, is {num_runs}\n',
-          f'i: number of iterations of each SA optimization is {num_opt_rounds}\n'
-          f'T: SA optimization temperature is {sa_temp:.3e}\n'
+          f'i: number of iterations of each SA optimization is {num_opt_rounds}\n',
+          f'T: SA optimization temperature is {sa_temp:.3e}\n',
+          f'today: label for the datafiles is {today}\n'
           )
+
+    data_path = f'data/{today}_TTN_SA'
+    # Make sure data path exists
+    if not os.path.isdir(data_path):
+        os.makedirs(data_path)
     
     # Generate randomness.
     ss = SeedSequence(rng_seed)
@@ -162,8 +165,7 @@ if __name__ == "__main__":
                     pickle.dump(ss.entropy, f)
                 
             if run == 0:
-                # FIXME: Are we saving only the result of the first run because this is common between all runs?
-                # answer: yes!
+                # The Hamiltonian type is common between all runs, thus we save it only once.
                 with open(f'{data_path}/{this_id}_hamtype.pkl', 'wb') as f:
                     pickle.dump([('HAMTYPE', HAMTYPE), ('disorder_strength', disorder_strength),
                                  ('j0', j0)], f)
