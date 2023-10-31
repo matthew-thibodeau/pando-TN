@@ -56,8 +56,8 @@ X2 = np.array([[0, 0, 0, 1],
 j0 = 1
 L = 16
 min_bond = 3
-num_bonds = 1
-bond_step = 1
+num_bonds = 2
+bond_step = 7
 disorder_strength = 1.0
 site_dim = 2
 num_runs = 1
@@ -137,10 +137,10 @@ if __name__ == "__main__":
         builder[L-2, L-1] += hamiltonian_vals[L-1], 'I', 'Z'
         H_mpo = builder.build_mpo(L)
         
-        for max_bond in bond_range:
-            this_id =  f'TTN_SA_{slurm_jobid}_{slurm_procid}_{run}_L{L}_D{site_dim}_m{max_bond}'
+        for this_bond in bond_range:
+            this_id =  f'TTN_SA_{slurm_jobid}_{slurm_procid}_{run}_L{L}_D{site_dim}_m{this_bond}'
     
-            states, energies, all_energies = ttn.optimize_MPO(H_mpo, max_bond, rounds = num_opt_rounds,
+            states, energies, all_energies = ttn.optimize_MPO(H_mpo, this_bond, rounds = num_opt_rounds,
                                                               min_coord = 3, max_coord = 3, rng = rng, temp = sa_temp)
             adj_matrices = [coo_matrix(x.get_adjacency_matrix()) for x in states]
         
