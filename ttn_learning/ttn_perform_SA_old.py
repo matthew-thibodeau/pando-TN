@@ -55,13 +55,12 @@ X2 = np.array([[0, 0, 0, 1],
 # Default values
 j0 = 1
 L = 16
-bond_size = 10
+min_bond = 10
+num_bonds = 1
+bond_step = 1
 disorder_strength = 1.0
 site_dim = 2
-
-run_start = 0
-run_end = 1
-
+num_runs = 1
 num_opt_rounds = 1
 rng_seed = 7777
 sa_temp = 1e-4
@@ -73,12 +72,12 @@ sa_temp = 1e-4
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-L', '--nqubits', dest='L', default=L)
-    parser.add_argument('-m', '--bond_size', dest='bond_size', default=bond_size)
+    parser.add_argument('-m', '--minbond', dest='min_bond', default=min_bond)
+    parser.add_argument('--num_bonds', dest='num_bonds', default=num_bonds)
+    parser.add_argument('--bond_step', dest='bond_step', default=bond_step)
     parser.add_argument('-d', '--disorder', dest='disorder_strength', default=disorder_strength)
     parser.add_argument('-s', '--rngseed', dest='rng_seed', default=rng_seed)
-    parser.add_argument('--runstart', dest='run_start', default=run_start)
-    parser.add_argument('--runend', dest='run_end', default=run_end)
-    parser.add_argument('-s', '--rngseed', dest='rng_seed', default=rng_seed)
+    parser.add_argument('-r', '--runs', dest='num_runs', default=num_runs)
     parser.add_argument('-i', '--iterations', dest='num_opt_rounds', default=num_opt_rounds)
     parser.add_argument('-T', '--temperature', dest='sa_temp', default=sa_temp)
     parser.add_argument('--today', dest='today', default=today)
@@ -87,8 +86,7 @@ if __name__ == "__main__":
     L = int(args.L)
     disorder_strength = float(args.disorder_strength)
     rng_seed = int(args.rng_seed)
-    run_start = int(args.run_start)
-    run_end = int(args.run_end)
+    num_runs = int(args.num_runs)
     num_opt_rounds = int(args.num_opt_rounds)
     sa_temp = float(args.sa_temp)
     today = args.today
@@ -97,15 +95,15 @@ if __name__ == "__main__":
     num_bonds = int(args.num_bonds)
     bond_step = int(args.bond_step)
     
+    bond_range = [min_bond + k * bond_step for k in range(num_bonds)]
 
     # Print values of the program arguments:
     print('\nOptimization with Simulated Annealing.\n',
           f'L: Hamiltonians have {L} qubits\n',
-          f'm: bond dimension is {bond_size}\n',
+          f'm: max bond dimensions are {bond_range}\n',
           f'd: disorder has strength {disorder_strength}\n',
           f's: seed of RNG is {rng_seed}\n',
-          f'runstart: first run, i.e. of random values for the field, is {run_start}\n',
-          f'runend: first run, i.e. of random values for the field, is {run_end}\n',
+          f'r: number of runs, i.e. of random values for the field, is {num_runs}\n',
           f'i: number of iterations of each SA optimization is {num_opt_rounds}\n',
           f'T: SA optimization temperature is {sa_temp:.3e}\n',
           f'today: label for the datafiles is {today}\n'
@@ -125,7 +123,7 @@ if __name__ == "__main__":
     slurm_jobid = os.environ.get('SLURM_JOB_ID', int(time.time()))
     slurm_procid = os.environ.get('SLURM_PROCID', int(time.time()))
     
-    for run in range(run_start, run_end):
+    for run in range(num_runs):
         print(f'---- run {run} ----')
         
         hamiltonian_vals = rng_H.normal(j0, disorder_strength, L)
@@ -140,37 +138,38 @@ if __name__ == "__main__":
         builder[L-2, L-1] += hamiltonian_vals[L-1], 'I', 'Z'
         H_mpo = builder.build_mpo(L)
         
-        this_id =  f'TTN_SA_{slurm_jobid}_{slurm_procid}_{run}_L{L}_D{site_dim}_m{bond_size}'
-
-        states, energies, all_energies = ttn.optimize_MPO(H_mpo, bond_size, rounds = num_opt_rounds,
-                                                          min_coord = 3, max_coord = 3, rng = rng, temp = sa_temp)
-        adj_matrices = [coo_matrix(x.get_adjacency_matrix()) for x in states]
+        for this_bond in bond_range:
+            this_id =  f'TTN_SA_{slurm_jobid}_{slurm_procid}_{run}_L{L}_D{site_dim}_m{this_bond}'
     
-        # From lists to pandas dataframe.
-        df = from_optimization_run_to_dataframe(states, energies, all_energies,
-                                                ss.entropy, hamiltonian_vals)
-        #print(df)
-
-        # Save the data.
-        with open(f'{data_path}/{this_id}_summary.pkl', 'wb') as f:
-            df.to_pickle(f)
-        with open(f'{data_path}/{this_id}_hamiltonian_vals.pkl', 'wb') as f:
-            pickle.dump(hamiltonian_vals, f)
-        if False:
-            with open(f'{data_path}/{this_id}_acceptedstates.pkl', 'wb') as f:
-                pickle.dump(adj_matrices, f)
-            with open(f'{data_path}/{this_id}_acceptedenergies.pkl', 'wb') as f:
-                pickle.dump(energies, f)
-            with open(f'{data_path}/{this_id}_proposedenergies.pkl', 'wb') as f:
-                pickle.dump(all_energies, f)
-            with open(f'{data_path}/{this_id}_randomseed.pkl', 'wb') as f:
-                pickle.dump(ss.entropy, f)
-            
-        if run == 0:
-            # The Hamiltonian type is common between all runs, thus we save it only once.
-            with open(f'{data_path}/{this_id}_hamtype.pkl', 'wb') as f:
-                pickle.dump([('HAMTYPE', HAMTYPE), ('disorder_strength', disorder_strength),
-                             ('j0', j0)], f)
+            states, energies, all_energies = ttn.optimize_MPO(H_mpo, this_bond, rounds = num_opt_rounds,
+                                                              min_coord = 3, max_coord = 3, rng = rng, temp = sa_temp)
+            adj_matrices = [coo_matrix(x.get_adjacency_matrix()) for x in states]
+        
+            # From lists to pandas dataframe.
+            df = from_optimization_run_to_dataframe(states, energies, all_energies,
+                                                    ss.entropy, hamiltonian_vals)
+            #print(df)
+    
+            # Save the data.
+            with open(f'{data_path}/{this_id}_summary.pkl', 'wb') as f:
+                df.to_pickle(f)
+            with open(f'{data_path}/{this_id}_hamiltonian_vals.pkl', 'wb') as f:
+                pickle.dump(hamiltonian_vals, f)
+            if False:
+                with open(f'{data_path}/{this_id}_acceptedstates.pkl', 'wb') as f:
+                    pickle.dump(adj_matrices, f)
+                with open(f'{data_path}/{this_id}_acceptedenergies.pkl', 'wb') as f:
+                    pickle.dump(energies, f)
+                with open(f'{data_path}/{this_id}_proposedenergies.pkl', 'wb') as f:
+                    pickle.dump(all_energies, f)
+                with open(f'{data_path}/{this_id}_randomseed.pkl', 'wb') as f:
+                    pickle.dump(ss.entropy, f)
+                
+            if run == 0:
+                # The Hamiltonian type is common between all runs, thus we save it only once.
+                with open(f'{data_path}/{this_id}_hamtype.pkl', 'wb') as f:
+                    pickle.dump([('HAMTYPE', HAMTYPE), ('disorder_strength', disorder_strength),
+                                 ('j0', j0)], f)
 
     print('---- The end ----')
     
