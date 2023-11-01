@@ -125,6 +125,10 @@ if __name__ == "__main__":
     slurm_jobid = os.environ.get('SLURM_JOB_ID', int(time.time()))
     slurm_procid = os.environ.get('SLURM_PROCID', int(time.time()))
     
+    for run in range(run_start):
+        # catch up the rng_H to the correct run
+        _ = rng_H.normal(j0, disorder_strength, L)
+    
     for run in range(run_start, run_end):
         print(f'---- run {run} ----')
         
