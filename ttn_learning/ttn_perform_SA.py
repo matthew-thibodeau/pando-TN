@@ -55,9 +55,9 @@ X2 = np.array([[0, 0, 0, 1],
 # Default values
 j0 = 1
 L = 16
-min_bond = 3
-num_bonds = 2
-bond_step = 7
+min_bond = 10
+num_bonds = 1
+bond_step = 1
 disorder_strength = 1.0
 site_dim = 2
 num_runs = 1
@@ -110,13 +110,14 @@ if __name__ == "__main__":
           )
 
     data_path = f'data/{today}_TTN_SA'
-    # Make sure data path exists
+    # Make sure data path exists  
     if not os.path.isdir(data_path):
         os.makedirs(data_path)
     
     # Generate randomness.
     ss = SeedSequence(rng_seed)
     rng = np.random.Generator(PCG64(ss))
+    rng_H = np.random.Generator(PCG64(ss))
     
     # If SLURM environment variables are not present, assume this is a local test run.
     slurm_jobid = os.environ.get('SLURM_JOB_ID', int(time.time()))
@@ -125,7 +126,7 @@ if __name__ == "__main__":
     for run in range(num_runs):
         print(f'---- run {run} ----')
         
-        hamiltonian_vals = rng.normal(j0, disorder_strength, L)
+        hamiltonian_vals = rng_H.normal(j0, disorder_strength, L)
     
         builder = qtn.SpinHam1D(S=1/2, cyclic=False)
         terms = {}

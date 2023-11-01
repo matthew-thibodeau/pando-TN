@@ -534,6 +534,8 @@ def local_ham(mpo, ttn, site, max_bond, max_coord = 3):
     xk.mangle_inner_(append='ket')
 
     network = (xb & mpo & xk)
+    
+    network.draw('_HAM')
     untagged_size = 1
     for t in network.tensors:
         if '_HAM' not in t.tags:
