@@ -6,6 +6,14 @@ echo -e   "###### run Simulated Annealing to optimize TTN layout ######"
 echo -e   "############################################################"
 
 ##########################################################################
+# VERSION 1
+# - each sbatch job is defined by the triplet of values
+#   (L,m,s) = (num qubits, bond dimension, rng seed)
+# - each job includes an iteration over 50 runs
+#   (i.e. the specification of the random coefficients of the Hamiltonian)
+# - since each job perform the runs sequentially, it takes long and uses a
+#   small part of the node computing resources (prob 9 threads or cores)
+##########################################################################
 
 echo -e "\n -- Setting the parameters that stay unchanged -- \n"
 
