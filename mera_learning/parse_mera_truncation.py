@@ -10,8 +10,44 @@ import numpy as np
 import pickle
 import os
 
-def uid(fname):
-    ...
+
+def mera_adjacency_matrix(mera_bonds):
+    
+    # mera_bonds should be the data loaded from one of the '{uid}_bonds.npy' files
+    mera_phys_dim = min((min(t) for _,t in mera_bonds))
+    mera_phys_size = len([t for _,t in mera_bonds if list(t) == [mera_phys_dim] * 4])
+    adj = np.zeros((len(mera_bonds), len(mera_bonds)))
+    
+    level = 0
+    max_level = int(np.log2(mera_phys_size))
+    start = 0
+    while level < max_level:
+        level_size = mera_phys_size // (2 ** level)
+        
+        # add the unitaries
+        this_level_unitaries = np.arange(start, start + 2*level_size, 2)
+        unitary_sizes = np.array([mera_bonds[k][1][0] for k in this_level_unitaries])
+        this_level_isometries = this_level_unitaries + 1
+        
+        next_level_size = level_size // 2
+        next_level_start = start + 2 * level_size
+        next_level_unitaries = np.arange(next_level_start, next_level_start + 2*next_level_size, 2)
+        next_level_unitary_sizes = np.array([mera_bonds[k][1][0] for k in next_level_unitaries])
+        # connect the unitaries and isometries
+        
+        adj[this_level_unitaries, this_level_isometries] = unitary_sizes
+        adj[this_level_unitaries, np.roll(this_level_isometries, 1)] = unitary_sizes
+        adj[this_level_isometries, this_level_unitaries] = unitary_sizes
+        adj[np.roll(this_level_isometries, 1),this_level_unitaries] = unitary_sizes
+        
+        adj[this_level_isometries, np.repeat(next_level_unitaries, 2)] = np.repeat(next_level_unitary_sizes, 2)
+        adj[np.repeat(next_level_unitaries, 2), this_level_isometries] = np.repeat(next_level_unitary_sizes, 2)
+
+        level += 1
+        start = next_level_start
+        
+    adj[-2, -1] = sum(mera_bonds[-1][1])
+    adj[-1, -2] = sum(mera_bonds[-1][1])
 
 
 datadir = 'data/mera_data/'
@@ -34,10 +70,27 @@ for s in hamtypefiles:
 #     pickle.dump([('HAMTYPE', HAMTYPE), ('disorder_strength', disorder_strength),
 #                  ('j0', j0)], f)
 
+# determine bonds
+
+
 all_errors = []
 error_comparison = []
+bonds = []
+adjs = []
 k = 0
 for uid in uids:
+    with open(f'{datadir}{uid}_bonds.pkl', 'rb') as f:
+        thisbonds = pickle.load(f)
+        bonds.append(thisbonds)
+    
+    adjpath = f'{datadir}{uid}_adjacency.npy'
+    if os.path.isfile(adjpath):
+        adj = np.load(adjpath)
+    else:
+        adj = mera_adjacency_matrix(thisbonds)
+        np.save(adjpath, adj)
+    adjs.append(adj)
+    
     e_svd = np.load(f'{datadir}{uid}_errors_svd.npy')
     e_largest = np.load(f'{datadir}{uid}_errors_largest.npy')
     all_errors.append([e_svd, e_largest])
