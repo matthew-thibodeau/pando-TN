@@ -558,9 +558,11 @@ for run in range(runs):  # 'runs' --> 'range(runs)' npds 2023-08-21
     errors_largest = np.array(best_energies_largest) - best_energies_largest[0]
     
     # save the data
+    
     svd_bonds = []
-    for k,t in zip(range(len(emo.tensors)), emo.tensors):
-        svd_bonds.append((k,t.shape))
+    for k in range(len(emo.tensors)):
+        this_bonds = emo[str(k)].shape
+        svd_bonds.append((k, this_bonds))
     
     with open(f'data/mera_learning_data/{this_id}_bonds.pkl', 'wb') as f:
         pickle.dump(svd_bonds, f)
