@@ -10,7 +10,11 @@ Arguments are:
 * '-m' = max bond dimension
 * '-d' = strength of disorder
 * '-s' = seed of the Random Number Generator
-* '-r' = number of Hamiltonian instances
+* '--runstart' = first run
+* '--runend' = last run
+* '-i' = number of Simulated Annealing iterations
+* '-T' = temperature of the SA
+* '--today' = date or other label of the SA run
 """
 import sys
 import os
@@ -78,7 +82,6 @@ if __name__ == "__main__":
     parser.add_argument('-s', '--rngseed', dest='rng_seed', default=rng_seed)
     parser.add_argument('--runstart', dest='run_start', default=run_start)
     parser.add_argument('--runend', dest='run_end', default=run_end)
-    parser.add_argument('-s', '--rngseed', dest='rng_seed', default=rng_seed)
     parser.add_argument('-i', '--iterations', dest='num_opt_rounds', default=num_opt_rounds)
     parser.add_argument('-T', '--temperature', dest='sa_temp', default=sa_temp)
     parser.add_argument('--today', dest='today', default=today)
