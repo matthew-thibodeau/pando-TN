@@ -95,11 +95,7 @@ if __name__ == "__main__":
     num_opt_rounds = int(args.num_opt_rounds)
     sa_temp = float(args.sa_temp)
     today = args.today
-    
-    min_bond = int(args.min_bond)
-    num_bonds = int(args.num_bonds)
-    bond_step = int(args.bond_step)
-    
+    bond_size = int(args.bond_size)
 
     # Print values of the program arguments:
     print('\nOptimization with Simulated Annealing.\n',
