@@ -6,7 +6,7 @@
 #SBATCH --get-user-env
 #SBATCH --partition=clxtrb
 #SBATCH --ntasks=8
-#SBATCH --cpus-per-task=1
+#SBATCH --cpus-per-task=4
 
 source /swtools/intel/compilers_and_libraries_2020.4.304/linux/bin/compilervars.sh intel64
 source /swtools/intel/compilers_and_libraries_2020.4.304/linux/mpi/bin64/mpivars.sh
