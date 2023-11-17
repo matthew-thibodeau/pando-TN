@@ -26,7 +26,6 @@ import pickle
 import numpy as np
 from numpy.random import SeedSequence, PCG64
 from scipy.sparse import coo_matrix
-import pandas as pd
 
 sys.path.insert(0, '../ttn_demo')
 
