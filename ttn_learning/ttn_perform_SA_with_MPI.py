@@ -22,18 +22,17 @@ Arguments are:
 import sys
 import os
 import time
+import datetime
 import argparse
 import pickle
 
 import numpy as np
 from numpy.random import SeedSequence, PCG64
 from scipy.sparse import coo_matrix
-import pandas as pd
 from mpi4py import MPI
 sys.path.insert(0, '../ttn_demo')
 
 import ttn
-import ttn_q_learn
 from utils import from_optimization_run_to_dataframe
 
 import quimb as qu
@@ -60,7 +59,7 @@ def mpi_print(*args, who: str = 'main', flush: bool = True, end: str = '\n'):
 # Default values and utility variables.
 ####################################################################
 
-today = '2023-10-30'
+today = str(datetime.date.today())
     
 # Set double precision.
 dtype = 'float32'
@@ -144,9 +143,11 @@ if __name__ == "__main__":
     slurm_jobid = os.environ.get('SLURM_JOB_ID', int(time.time()))
     slurm_procid = os.environ.get('SLURM_PROCID', int(time.time()))
     
-    ###### FIXME: what is this? why the for loop?
+    # catch up the run-generating rng_H to the correct run by purging values
     for run in range(run_start):
-        # catch up the rng_H to the correct run
+        if (run-run_start) % mpi_size != mpi_rank:
+            continue
+        
         _ = rng_H.normal(j0, disorder_strength, L)
     
     for run in range(run_start, run_end):
