@@ -9,6 +9,7 @@ torch
 pytest
 coverage
 cotengra
+pandas
 
 # Extra info:
 # cotengra: https://cotengra.readthedocs.io/en/latest/installation.html

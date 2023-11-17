@@ -30,7 +30,6 @@ from scipy.sparse import coo_matrix
 sys.path.insert(0, '../ttn_demo')
 
 import ttn
-import ttn_q_learn
 from utils import from_optimization_run_to_dataframe
 
 import quimb as qu
