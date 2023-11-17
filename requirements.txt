@@ -10,6 +10,7 @@ pytest
 coverage
 cotengra
 pandas
+mpi4py
 
 # Extra info:
 # cotengra: https://cotengra.readthedocs.io/en/latest/installation.html
