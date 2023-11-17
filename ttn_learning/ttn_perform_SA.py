@@ -19,6 +19,7 @@ Arguments are:
 import sys
 import os
 import time
+import datetime
 import argparse
 import pickle
 
@@ -40,7 +41,7 @@ import quimb.tensor as qtn
 # Default values and utility variables.
 ####################################################################
 
-today = '2023-10-30'
+today = str(datetime.date.today())
     
 # Set double precision.
 dtype = 'float32'
@@ -104,7 +105,7 @@ if __name__ == "__main__":
           f'd: disorder has strength {disorder_strength}\n',
           f's: seed of RNG is {rng_seed}\n',
           f'runstart: first run, i.e. of random values for the field, is {run_start}\n',
-          f'runend: first run, i.e. of random values for the field, is {run_end}\n',
+          f'runend: last run, i.e. of random values for the field, is {run_end}\n',
           f'i: number of iterations of each SA optimization is {num_opt_rounds}\n',
           f'T: SA optimization temperature is {sa_temp:.3e}\n',
           f'today: label for the datafiles is {today}\n'

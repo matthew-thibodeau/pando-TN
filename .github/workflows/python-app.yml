@@ -37,3 +37,6 @@ jobs:
     - name: Test with coverage and pytest
       run: |
         make utest
+    - name: Regression test for SA functionality
+      run: |
+        make rtest
