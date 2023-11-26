@@ -143,15 +143,13 @@ if __name__ == "__main__":
     slurm_jobid = os.environ.get('SLURM_JOB_ID', int(time.time()))
     slurm_procid = os.environ.get('SLURM_PROCID', int(time.time()))
     
-    # catch up the run-generating rng_H to the correct run by purging values
+    # Catch up the run-generating rng_H to the correct run by purging values.
     for run in range(run_start):
-        if (run-run_start) % mpi_size != mpi_rank:
-            continue
-        
         _ = rng_H.normal(j0, disorder_strength, L)
     
     for run in range(run_start, run_end):
         if (run-run_start) % mpi_size != mpi_rank:
+            _ = rng_H.normal(j0, disorder_strength, L)
             continue
         mpi_print(f'---- run {run} ----', who='all')
         
