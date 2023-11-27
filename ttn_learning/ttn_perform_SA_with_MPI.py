@@ -117,17 +117,19 @@ if __name__ == "__main__":
     bond_size = int(args.bond_size)
 
     # Print values of the program arguments:
-    print('\nOptimization with Simulated Annealing.\n',
-          f'L: Hamiltonians have {L} qubits\n',
-          f'm: bond dimension is {bond_size}\n',
-          f'd: disorder has strength {disorder_strength}\n',
-          f's: seed of RNG is {rng_seed}\n',
-          f'runstart: first run, i.e. of random values for the field, is {run_start}\n',
-          f'runend: first run, i.e. of random values for the field, is {run_end}\n',
-          f'i: number of iterations of each SA optimization is {num_opt_rounds}\n',
-          f'T: SA optimization temperature is {sa_temp:.3e}\n',
-          f'today: label for the datafiles is {today}\n'
-          )
+    print(f'test to check printing from rank {mpi_rank}')
+    mpi_print('\nOptimization with Simulated Annealing.\n',
+             f'L: Hamiltonians have {L} qubits\n',
+             f'm: bond dimension is {bond_size}\n',
+             f'd: disorder has strength {disorder_strength}\n',
+             f's: seed of RNG is {rng_seed}\n',
+             f'runstart: first run, i.e. of random values for the field, is {run_start}\n',
+             f'runend: first run, i.e. of random values for the field, is {run_end}\n',
+             f'i: number of iterations of each SA optimization is {num_opt_rounds}\n',
+             f'T: SA optimization temperature is {sa_temp:.3e}\n',
+             f'today: label for the datafiles is {today}\n',
+             who='main'
+             )
 
     data_path = f'data/{today}_TTN_SA'
     # Make sure data path exists  
