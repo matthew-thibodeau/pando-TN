@@ -1,0 +1,135 @@
+Traceback (most recent call last):
+  File "/data/nfs_home/giangiac/pando-TN/ttn_learning/../ttn_demo/ttn.py", line 586, in sweep_subtree
+    h, hm, _, _, _ = local_ham(mpo, ttn, tag, max_bond)
+  File "/data/nfs_home/giangiac/pando-TN/ttn_learning/../ttn_demo/ttn.py", line 546, in local_ham
+    y = ((xb | mpo | xk)^ '_HAM')['_HAM']
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/quimb/tensor/tensor_core.py", line 8015, in __xor__
+    return self.contract(tags)
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/quimb/tensor/tensor_core.py", line 7867, in contract
+    return self.contract_tags(tags, inplace=inplace, **opts)
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/quimb/tensor/tensor_core.py", line 7739, in contract_tags
+    contracted = tensor_contract(
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/quimb/tensor/tensor_core.py", line 222, in tensor_contract
+    data_out = expression(*arrays, backend=backend)
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/quimb/tensor/contraction.py", line 132, in __call__
+    return self.fn(*args, backend=backend, **kwargs)
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/opt_einsum/contract.py", line 763, in __call__
+    return self._contract(ops, out, backend, evaluate_constants=evaluate_constants)
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/opt_einsum/contract.py", line 693, in _contract
+    return _core_contract(list(arrays),
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/opt_einsum/contract.py", line 573, in _core_contract
+    new_view = _tensordot(*tmp_operands, axes=(tuple(left_pos), tuple(right_pos)), backend=backend)
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/opt_einsum/sharing.py", line 131, in cached_tensordot
+    return tensordot(x, y, axes, backend=backend)
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/opt_einsum/contract.py", line 374, in _tensordot
+    return fn(x, y, axes=axes)
+  File "<__array_function__ internals>", line 200, in tensordot
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/numpy/core/numeric.py", line 1139, in tensordot
+    res = dot(at, bt)
+  File "<__array_function__ internals>", line 200, in dot
+ValueError: Internal error while evaluating `ContractExpression`. Note that few checks are performed - the number and rank of the array arguments must match the original expression. The internal error was: '('On entry to DGEMM parameter number 4 had an illegal value',)'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "./ttn_perform_SA_with_MPI.py", line 172, in <module>
+    states, energies, all_energies = ttn.optimize_MPO(H_mpo, bond_size, rounds = num_opt_rounds,
+  File "/data/nfs_home/giangiac/pando-TN/ttn_learning/../ttn_demo/ttn.py", line 752, in optimize_MPO
+    states, energies, all_energies = anneal_timestep(x, H, L, temp,
+  File "/data/nfs_home/giangiac/pando-TN/ttn_learning/../ttn_demo/ttn.py", line 722, in anneal_timestep
+    e = sweep_tree(x, mpo, L, max_bond, reps = 1, method=method)[-1]
+  File "/data/nfs_home/giangiac/pando-TN/ttn_learning/../ttn_demo/ttn.py", line 648, in sweep_tree
+    return sweep_subtree(ttn, mpo, L, max_bond, ttn.get_top_parent(), reps, reverse, method)
+  File "/data/nfs_home/giangiac/pando-TN/ttn_learning/../ttn_demo/ttn.py", line 602, in sweep_subtree
+    raise Exception('dmrg failed')
+Exception: dmrg failed
+Traceback (most recent call last):
+  File "/data/nfs_home/giangiac/pando-TN/ttn_learning/../ttn_demo/ttn.py", line 586, in sweep_subtree
+    h, hm, _, _, _ = local_ham(mpo, ttn, tag, max_bond)
+  File "/data/nfs_home/giangiac/pando-TN/ttn_learning/../ttn_demo/ttn.py", line 546, in local_ham
+    y = ((xb | mpo | xk)^ '_HAM')['_HAM']
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/quimb/tensor/tensor_core.py", line 8015, in __xor__
+    return self.contract(tags)
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/quimb/tensor/tensor_core.py", line 7867, in contract
+    return self.contract_tags(tags, inplace=inplace, **opts)
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/quimb/tensor/tensor_core.py", line 7739, in contract_tags
+    contracted = tensor_contract(
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/quimb/tensor/tensor_core.py", line 222, in tensor_contract
+    data_out = expression(*arrays, backend=backend)
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/quimb/tensor/contraction.py", line 132, in __call__
+    return self.fn(*args, backend=backend, **kwargs)
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/opt_einsum/contract.py", line 763, in __call__
+    return self._contract(ops, out, backend, evaluate_constants=evaluate_constants)
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/opt_einsum/contract.py", line 693, in _contract
+    return _core_contract(list(arrays),
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/opt_einsum/contract.py", line 573, in _core_contract
+    new_view = _tensordot(*tmp_operands, axes=(tuple(left_pos), tuple(right_pos)), backend=backend)
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/opt_einsum/sharing.py", line 131, in cached_tensordot
+    return tensordot(x, y, axes, backend=backend)
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/opt_einsum/contract.py", line 374, in _tensordot
+    return fn(x, y, axes=axes)
+  File "<__array_function__ internals>", line 200, in tensordot
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/numpy/core/numeric.py", line 1139, in tensordot
+    res = dot(at, bt)
+  File "<__array_function__ internals>", line 200, in dot
+ValueError: Internal error while evaluating `ContractExpression`. Note that few checks are performed - the number and rank of the array arguments must match the original expression. The internal error was: '('On entry to DGEMM parameter number 4 had an illegal value',)'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "./ttn_perform_SA_with_MPI.py", line 172, in <module>
+    states, energies, all_energies = ttn.optimize_MPO(H_mpo, bond_size, rounds = num_opt_rounds,
+  File "/data/nfs_home/giangiac/pando-TN/ttn_learning/../ttn_demo/ttn.py", line 752, in optimize_MPO
+    states, energies, all_energies = anneal_timestep(x, H, L, temp,
+  File "/data/nfs_home/giangiac/pando-TN/ttn_learning/../ttn_demo/ttn.py", line 722, in anneal_timestep
+    e = sweep_tree(x, mpo, L, max_bond, reps = 1, method=method)[-1]
+  File "/data/nfs_home/giangiac/pando-TN/ttn_learning/../ttn_demo/ttn.py", line 648, in sweep_tree
+    return sweep_subtree(ttn, mpo, L, max_bond, ttn.get_top_parent(), reps, reverse, method)
+  File "/data/nfs_home/giangiac/pando-TN/ttn_learning/../ttn_demo/ttn.py", line 602, in sweep_subtree
+    raise Exception('dmrg failed')
+Exception: dmrg failed
+Traceback (most recent call last):
+  File "/data/nfs_home/giangiac/pando-TN/ttn_learning/../ttn_demo/ttn.py", line 586, in sweep_subtree
+    h, hm, _, _, _ = local_ham(mpo, ttn, tag, max_bond)
+  File "/data/nfs_home/giangiac/pando-TN/ttn_learning/../ttn_demo/ttn.py", line 546, in local_ham
+    y = ((xb | mpo | xk)^ '_HAM')['_HAM']
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/quimb/tensor/tensor_core.py", line 8015, in __xor__
+    return self.contract(tags)
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/quimb/tensor/tensor_core.py", line 7867, in contract
+    return self.contract_tags(tags, inplace=inplace, **opts)
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/quimb/tensor/tensor_core.py", line 7739, in contract_tags
+    contracted = tensor_contract(
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/quimb/tensor/tensor_core.py", line 222, in tensor_contract
+    data_out = expression(*arrays, backend=backend)
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/quimb/tensor/contraction.py", line 132, in __call__
+    return self.fn(*args, backend=backend, **kwargs)
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/opt_einsum/contract.py", line 763, in __call__
+    return self._contract(ops, out, backend, evaluate_constants=evaluate_constants)
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/opt_einsum/contract.py", line 693, in _contract
+    return _core_contract(list(arrays),
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/opt_einsum/contract.py", line 573, in _core_contract
+    new_view = _tensordot(*tmp_operands, axes=(tuple(left_pos), tuple(right_pos)), backend=backend)
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/opt_einsum/sharing.py", line 131, in cached_tensordot
+    return tensordot(x, y, axes, backend=backend)
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/opt_einsum/contract.py", line 374, in _tensordot
+    return fn(x, y, axes=axes)
+  File "<__array_function__ internals>", line 200, in tensordot
+  File "/data/nfs_home/giangiac/anaconda3/envs/pando-env/lib/python3.8/site-packages/numpy/core/numeric.py", line 1139, in tensordot
+    res = dot(at, bt)
+  File "<__array_function__ internals>", line 200, in dot
+ValueError: Internal error while evaluating `ContractExpression`. Note that few checks are performed - the number and rank of the array arguments must match the original expression. The internal error was: '('On entry to DGEMM parameter number 4 had an illegal value',)'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "./ttn_perform_SA_with_MPI.py", line 172, in <module>
+    states, energies, all_energies = ttn.optimize_MPO(H_mpo, bond_size, rounds = num_opt_rounds,
+  File "/data/nfs_home/giangiac/pando-TN/ttn_learning/../ttn_demo/ttn.py", line 752, in optimize_MPO
+    states, energies, all_energies = anneal_timestep(x, H, L, temp,
+  File "/data/nfs_home/giangiac/pando-TN/ttn_learning/../ttn_demo/ttn.py", line 722, in anneal_timestep
+    e = sweep_tree(x, mpo, L, max_bond, reps = 1, method=method)[-1]
+  File "/data/nfs_home/giangiac/pando-TN/ttn_learning/../ttn_demo/ttn.py", line 648, in sweep_tree
+    return sweep_subtree(ttn, mpo, L, max_bond, ttn.get_top_parent(), reps, reverse, method)
+  File "/data/nfs_home/giangiac/pando-TN/ttn_learning/../ttn_demo/ttn.py", line 602, in sweep_subtree
+    raise Exception('dmrg failed')
+Exception: dmrg failed

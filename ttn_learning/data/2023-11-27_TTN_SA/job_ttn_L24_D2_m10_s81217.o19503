@@ -1,0 +1,79 @@
+test to check printing from rank 0
+
+Optimization with Simulated Annealing.
+ L: Hamiltonians have 24 qubits
+ m: bond dimension is 10
+ d: disorder has strength 1.0
+ s: seed of RNG is 81217
+ runstart: first run, i.e. of random values for the field, is 28
+ runend: first run, i.e. of random values for the field, is 56
+ i: number of iterations of each SA optimization is 1000
+ T: SA optimization temperature is 1.000e-04
+ today: label for the datafiles is 2023-11-27
+
+test to check printing from rank 1
+[rank  1] ---- run 29 ----
+test to check printing from rank 4
+[rank  4] ---- run 32 ----
+test to check printing from rank 5
+[rank  5] ---- run 33 ----
+test to check printing from rank 10
+[rank 10] ---- run 38 ----
+test to check printing from rank 12
+[rank 12] ---- run 40 ----
+test to check printing from rank 13
+[rank 13] ---- run 41 ----
+test to check printing from rank 14
+[rank 14] ---- run 42 ----
+test to check printing from rank 15
+[rank 15] ---- run 43 ----
+test to check printing from rank 16
+[rank 16] ---- run 44 ----
+test to check printing from rank 20
+[rank 20] ---- run 48 ----
+test to check printing from rank 21
+[rank 21] ---- run 49 ----
+test to check printing from rank 22
+[rank 22] ---- run 50 ----
+test to check printing from rank 26
+[rank 26] ---- run 54 ----
+test to check printing from rank 27
+[rank 27] ---- run 55 ----
+[rank  0] ---- run 28 ----
+test to check printing from rank 2
+[rank  2] ---- run 30 ----
+test to check printing from rank 3
+[rank  3] ---- run 31 ----
+test to check printing from rank 6
+[rank  6] ---- run 34 ----
+test to check printing from rank 7
+[rank  7] ---- run 35 ----
+test to check printing from rank 8
+[rank  8] ---- run 36 ----
+test to check printing from rank 9
+[rank  9] ---- run 37 ----
+test to check printing from rank 11
+[rank 11] ---- run 39 ----
+test to check printing from rank 17
+[rank 17] ---- run 45 ----
+test to check printing from rank 18
+[rank 18] ---- run 46 ----
+test to check printing from rank 19
+[rank 19] ---- run 47 ----
+test to check printing from rank 23
+[rank 23] ---- run 51 ----
+test to check printing from rank 24
+[rank 24] ---- run 52 ----
+test to check printing from rank 25
+[rank 25] ---- run 53 ----
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 705464 RUNNING AT pcl-spr04
+=   EXIT CODE: 9
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+YOUR APPLICATION TERMINATED WITH THE EXIT STRING: Killed (signal 9)
+This typically refers to a problem with your application.
+Please see the FAQ page for debugging suggestions
