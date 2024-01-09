@@ -13,8 +13,13 @@ import matplotlib.pyplot as plt
 from fractions import Fraction
 
 
-Dval = 3
-listing = glob.glob(f'data/time_data*_L*D{Dval}.npy')
+
+Dval = 2
+Lval = 40
+topdir = 'mps_data/data'
+
+
+listing = glob.glob(f'{topdir}/time_data*_L*D{Dval}.npy')
 exactdict = defaultdict(list)
 approxdict = defaultdict(list)
 onesitedict = defaultdict(list)
@@ -37,7 +42,7 @@ for fname in listing:
     else:
         baddict[(dval, lval)].append(exactval)
 
-energylisting = glob.glob(f'data/energy_data*_L*D{Dval}.npy')
+energylisting = glob.glob(f'{topdir}/energy_data*_L*D{Dval}.npy')
 exact_e_dict = defaultdict(list)
 approx_e_dict = defaultdict(list)
 for fname in energylisting:
@@ -78,17 +83,17 @@ prop_cycle = plt.rcParams['axes.prop_cycle']
 colors = prop_cycle.by_key()['color']
 
 fig, ax = plt.subplots()
-exdata = exactdict[Dval, 40]
-apdata = approxdict[Dval, 40]
-osdata = onesitedict[Dval, 40]
+exdata = exactdict[Dval, Lval]
+apdata = approxdict[Dval, Lval]
+osdata = onesitedict[Dval, Lval]
 ax.boxplot([exdata, apdata, osdata], widths = 0.3, sym='')
 ax.set_ylabel('Wall-time speedup, X',labelpad=0)
 ax.set_xticks([1,2,3], labels=['exact', 'approximate', '1 site'])
 
 
 fig, ax = plt.subplots()
-exedata = exact_e_dict[Dval, 40]
-apedata = approx_e_dict[Dval, 40]
+exedata = exact_e_dict[Dval, Lval]
+apedata = approx_e_dict[Dval, Lval]
 ax.boxplot([exedata, apedata], widths = 0.3, sym='')
 ax.set_ylabel('Energy error',labelpad=0)
 ax.set_xticks([1,2], labels=['exact', 'approximate'])

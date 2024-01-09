@@ -512,6 +512,505 @@ class TTN(qtn.TensorNetwork):
         # print(tag)
         super().delete(tag)
         self._parents.pop(tag)
+        
+        
+class TTN_branched(qtn.TensorNetwork):
+
+    def __init__(self,  ts, parent_nodes, *, virtual=False, check_collisions=True):
+
+        super().__init__(ts, virtual = virtual, check_collisions = check_collisions)
+        # now overlay the tree structure defined by parent_nodes
+        # WARNING: does not check for validity of the tree structure
+        self._parents = parent_nodes
+        self._canonization_center = None
+        self._node_degrees = None
+        self._groups = None
+
+    def __copy__(self):
+
+        newTN = super().copy(deep=True)
+        newTN._parents = copy(self._parents)
+        return newTN
+
+    def copy(self):
+        return self.__copy__()
+
+
+    @classmethod
+    def random_TTN(cls, leaves, phys_dim, bd_min, bd_max, degree_min = 3, degree_max = 3, rng=None):
+        # creates a random TTN
+        if rng is None:
+            rng = np.random.default_rng()
+
+        # first, create the topology
+        parent_nodes, node_degrees, groups = cls._rand_tree_parents(leaves, degree_min, degree_max, rng=rng)
+        num_parents = len(node_degrees) - leaves
+        
+        # now create random tensors
+
+        bds = {k:  [[phys_dim, 0]] + [[rng.integers(bd_min, bd_max + 1),1] for _ in range(node_degrees[k])]
+                      for k in range(num_parents + leaves)}
+
+        for k in range(leaves):
+            for bond in bds[k]:
+                bond[1] = 0
+
+        for c,p in parent_nodes.items():
+            if p is not None:
+                cn, pn = cls.get_tree_num(c), cls.get_tree_num(p)
+                
+                # if cn == 16:
+                #     print('lol')
+
+                cbonds = bds[cn]
+                pbonds = bds[pn]
+
+                cbond = cbonds[-1]
+                pbond = next(x for x in pbonds if x[1] == 1)
+
+                this_bd = cbond[0]
+                pbond[0] = this_bd
+
+                # set flags
+                cbond[1] = 0
+                pbond[1] = 0
+
+                # print(cbond, pbond)
+
+        bds = {k: [x[0] for x in v] for k,v in bds.items()}
+
+        leaf_tensors = []
+        for d in range(leaves):
+            # pnum = parent_nodes[f'tree{d}'].split('tree')[1]
+            leaf_tensors.append(qtn.Tensor(rng.normal(size=(phys_dim, bds[d][-1])), inds=(f'p{d}',
+                                    'dummy'),
+                                   tags = f'tree{d}'))
+        parent_tensors = [qtn.Tensor(rng.normal(size=bds[d + leaves]),
+                        inds = [f'p{d + leaves}'] + [f'dummy{k}' for k in range(node_degrees[d + leaves])],
+                        tags=f'tree{d + leaves}')
+                          for d in range(num_parents)]
+        tensors = leaf_tensors + parent_tensors
+        children = leaf_tensors
+
+        while len(children) > 0:
+            parents = []
+            # print(children)
+            # print(len(children))
+            for leaf_tensor in children:
+                cl = cls.get_tree_tag(leaf_tensor)
+                cind = cl.split('tree')[1]
+                pl = parent_nodes[cl]
+                if pl is not None:
+                    pind = int(pl.split('tree')[1])
+                    pt = tensors[pind]
+
+                    # print(pt)
+
+
+                    cbond = next(x for x in leaf_tensor.inds if 'dummy' in x)
+                    pbond = next(x for x in pt.inds if 'dummy' in x)
+                    newbond = f'{cind}b{pind}'
+
+                    leaf_tensor.reindex({cbond:newbond}, inplace=True)
+                    pt.reindex({pbond:newbond}, inplace=True)
+                    if pt not in parents:
+                        parents.append(pt)
+            # print('p' + str(len(parents)))
+            children = parents
+
+
+        x = TTN(tensors, parent_nodes)
+        x._node_degrees = node_degrees
+        x._groups = groups
+
+        x.normalize()
+        x.condition_tree()
+
+        return x
+
+
+    @staticmethod
+    def _rand_tree_groups(num_leaves, dmin, dmax, rng=None):
+        if rng is None:
+            rng = np.random.default_rng()
+        groups = []
+        # add the first layer to the tree
+        layer = []
+        remaining_heads = num_leaves
+        while remaining_heads > 1:
+            num_layer = remaining_heads
+            layer = []
+            while sum(layer) < num_layer:
+                layer.append(rng.integers(dmin - 1, dmax))
+            # fix the last slot
+            layer[-1] = num_layer - sum(layer[:-1])
+            groups.append(copy(layer))
+
+            remaining_heads = len(layer)
+
+        return groups
+
+    @classmethod
+    def _rand_tree_parents(cls, num_leaves, dmin, dmax, rng=None):
+        if rng is None:
+            rng = np.random.default_rng()
+        groups = cls._rand_tree_groups(num_leaves, dmin, dmax, rng=rng)
+        # print(groups)
+        parent_dict = {}
+
+        child_idx = 0
+        parent_idx = num_leaves
+
+        # leaves have one phyiscal bond and one virtual bond
+        # virtual bond will be counted later
+        node_degrees = [1] * num_leaves
+
+        for layergroup in groups:
+
+            # parent_idx += sum(layergroup)
+            node_degrees.extend([0] * (parent_idx - child_idx))
+            for step in layergroup:
+                for _ in range(step):
+                    cn = f'tree{child_idx}'
+                    pn = f'tree{parent_idx}'
+                    parent_dict[cn] = pn
+                    node_degrees[parent_idx] += 1
+                    node_degrees[child_idx] += 1
+                    child_idx += 1
+                parent_idx += 1
+        ln = f'tree{parent_idx - 1}'
+        parent_dict[ln] = None
+
+        node_degrees = [x for x in node_degrees if x != 0]
+        return parent_dict, node_degrees, groups
+
+    @staticmethod
+    def get_tree_tag(tensor):
+        if tensor is None:
+            return None
+        else:
+            return next(x for x in tensor.tags if 'tree' in x)
+
+    @classmethod
+    def tree_name(cls, tensor):
+        if isinstance(tensor, str):
+            return tensor
+        else:
+            return cls.get_tree_tag(tensor)
+
+    @classmethod
+    def get_tree_num(cls, tensor):
+        tt = cls.tree_name(tensor)
+        return int(tt.split('tree')[1])
+
+    def next_tree_num(self):
+        tree_nums = [self.get_tree_num(x) for x in self.tensors]
+        return max(tree_nums) + 1
+
+    def next_tree_tag(self):
+        return 'tree' + str(self.next_tree_num())
+
+    def retag(self, retagging):
+        # does inplace only
+        super().retag(retagging, inplace = True)
+
+        retagging[None] = None
+        pdict = self._parents
+        newpdict = {retagging[k]: retagging[v] for (k,v) in pdict.items()}
+        self._parents = newpdict
+        self._canonization_center = retagging[self._canonization_center]
+
+    def canonize_labels(self):
+
+        retagging = {}
+        nodequeue = list(self.get_leaves())
+        seen = []
+
+        counter = 0
+
+        while len(nodequeue) > 0:
+            tag = nodequeue.pop(0)
+            # print(tag)
+            if tag in seen or tag is None:
+                continue
+            else:
+                seen.append(tag)
+                parent = self.get_parent(tag)
+                nodequeue.append(parent)
+                retagging[tag] = f'tree{counter}'
+                counter += 1
+                # print(tag, counter)
+
+
+        self.retag(retagging)
+
+
+    def get_adjacency_matrix(self):
+        self.canonize_labels()
+        nt = self.num_tensors
+        adj = np.zeros((nt, nt), dtype='int16')
+        for ctag,ptag in self._parents.items():
+            if ptag is not None:
+                c, p = self[ctag], self[ptag]
+                # print(c, p)
+                cn = self.get_tree_num(c)
+                pn = self.get_tree_num(p)
+
+                weight = c.ind_size(list(c.bonds(p))[0])
+                adj[cn, pn] = weight
+                adj[pn, cn] = weight
+
+        return adj
+
+    def get_parent(self, tensor):
+        tree_tag = self.tree_name(tensor)
+        if tree_tag not in self._parents.keys():
+            return None
+        else:
+            return self._parents[tree_tag]
+
+    def set_parent(self, tensor, parent_lbl):
+        tree_tag = self.tree_name(tensor)
+        self._parents[tree_tag] = parent_lbl
+
+
+    def get_all_parents(self, tensor):
+        nt = self.get_parent(tensor)
+        pl = []
+        while nt is not None:
+            pl.append(nt)
+            nt = self.get_parent(pl[-1])
+        return pl
+
+    def get_children(self, tensor):
+        tree_tag = self.tree_name(tensor)
+        return (k for k,v in self._parents.items() if v == tree_tag)
+
+    def get_all_children(self, tensor):
+        tree_tag = self.tree_name(tensor)
+        children = list(self.get_children(tree_tag))
+        for x in self.get_children(tree_tag):
+            children.extend(list(self.get_all_children(x)))
+        return children
+
+    def get_descendents(self, tensor):
+
+        tt = self.tree_name(tensor)
+        children = list(self.get_children(tensor))
+        if len(children) == 0:
+            return [tt]
+        else:
+            return list(itertools.chain(*[self.get_descendents(c) for c in children]))
+
+    def move_one_link(self, tensor, old_parent, new_parent, max_bond = None):
+        # moves tensor from parent tensor old_parent to new_parent
+        op = self[old_parent]
+        newp = self[new_parent]
+        child_link = op.filter_bonds(tensor)[0][0]
+        parent_link = op.filter_bonds(newp)[0][0]
+        q,r = op.split((child_link, parent_link), absorb='left', max_bond = max_bond)
+        q.drop_tags(self.get_tree_tag(op))
+
+        # new structure: old_parent --> r, new_parent --> new_parent @ q
+        self[old_parent] = r
+        self[new_parent] = self[new_parent] @ q
+
+        self.set_parent(tensor, new_parent)
+
+    def fuse_subtrees(self, root1, root2, max_bond = None):
+        # fuse the subtrees rooted at root1 and root2
+        # root1 and root2 should have a common parent
+
+        pn = self.get_parent(root1)
+        if pn != self.get_parent(root2):
+            raise Exception('subtree roots have different parents')
+        pn_t = self[pn]
+        root1_t, root2_t = self[root1], self[root2]
+        l1, l2 = pn_t.filter_bonds(root1_t)[0][0], pn_t.filter_bonds(root2_t)[0][0]
+        pn_newleaf, pn_newhead = pn_t.split((l1,l2), max_bond=max_bond)
+
+        pn_newleaf.drop_tags(pn)
+        newtag = self.next_tree_tag()
+        pn_newleaf.add_tag(newtag)
+
+        # modify old parent
+        self[pn] = pn_newhead
+        self.add(pn_newleaf)
+        self.set_parent(root1, newtag)
+        self.set_parent(root2, newtag)
+        self.set_parent(newtag, pn)
+
+        self._canonization_center = None
+
+    def canonize_between(self, t1, t2, absorb = 'right', max_bond = None):
+
+        # try:
+        t1t = self[t1]
+        t2t = self[t2]
+        _, li = t1t.filter_bonds(t2t)
+        # except:
+        #     self.draw(color=(t1, t2))
+        #     raise Exception(f'problem with bonds: {t1}, {t2}, {self._parents}')
+        if absorb is not None:
+            # print(max_bond)
+            q,r = t1t.split(li, absorb = absorb, max_bond = max_bond)
+            # print(q.shape)
+            # print(r.shape)
+            s = None
+        else:
+            q,s,r = t1t.split(li, method = 'svd', absorb = None, max_bond = max_bond)
+        r.drop_tags(q.tags)
+        self[t1] = q
+        self[t2] = t2t @ r
+
+        self._canonization_center = None
+
+        return s
+
+    def canonize_subtree(self, parent, up = False, max_bond = None):
+
+        children = list(self.get_children(parent))
+        for child in children:
+            self.canonize_subtree(child, up = True, max_bond = max_bond)
+
+        if up:
+            gp = self._parents[parent]
+            self.canonize_between(parent, gp, max_bond = max_bond)
+
+        self._canonization_center = None
+
+    def canonize_top(self, max_bond = None):
+        parent = self.get_top_parent()
+        if self._canonization_center is not None:
+            self.canonize_path(self._canonization_center, parent, max_bond)
+        else:
+            if parent is None:
+                raise Exception('error finding top parent')
+            self.canonize_subtree(parent, False, max_bond)
+        self._canonization_center = parent
+
+    def canonize_path(self, t1, t2, max_bond = None):
+
+        path = self.get_path(t1, t2)[1:]
+        ct = t1
+        for nt in path:
+            self.canonize_between(ct, nt, max_bond = max_bond)
+            ct = nt
+
+
+        self._canonization_center = None
+
+    def canonize_bond(self, child, parent, get = False):
+
+        self.canonize_top()
+        self.canonize_path(self.get_top_parent(), parent)
+        if get:
+            s = self.canonize_between(child, parent, absorb = None)
+        else:
+            self.canonize_between(child, parent)
+            s = None
+        self._canonization_center = None
+        return s
+
+    def canonize_site(self, site, max_bond = None):
+        if self._canonization_center is None:
+            self.canonize_top(max_bond)
+        self.canonize_path(self._canonization_center, site, max_bond)
+        self._canonization_center = site
+
+    def normalize(self):
+
+        self.canonize_top()
+        tidx = self.get_top_parent()
+        top = self[tidx]
+        u,_,v = top.split(top.inds[0], absorb=None)
+        nt = u @ v
+        self[tidx] = nt / np.sqrt(nt @ nt.H)
+
+
+    def get_leaves(self):
+        children, parents = zip(*self._parents.items())
+        return list(sorted(x for x in children if x not in parents))
+
+    def get_top_parent(self):
+        children, parents = zip(*self._parents.items())
+        return next(x for x in parents if (x not in children
+                    or self._parents[x] is None) and x is not None)
+
+
+    def get_path(self, t1, t2):
+        # return the shortest path from t1 to t2 as an (ordered) list
+        # of tensor labels, including t1 and t2
+        t1p = [t1] + self.get_all_parents(t1)
+        t2_parents = [t2]
+        while t2_parents[-1] not in t1p:
+            t2_parents.append(self.get_parent(t2_parents[-1]))
+        t1p_endidx = t1p.index(t2_parents[-1])
+        return t1p[:t1p_endidx] + list(reversed(t2_parents))
+
+
+    def transport_subtree(self, root, destination, max_bond = None):
+        # transports the subtree rooted at the tensor root though ttn so that it
+        # connects to the tensor destination
+
+        idxlist = self.get_path(root, destination)[1:] # exclude root from idxlist
+        parent_tensor_label = idxlist.pop(0)
+        for tensor in idxlist:
+            self.move_one_link(self[root], parent_tensor_label, tensor, max_bond)
+            parent_tensor_label = copy(tensor)
+
+    def condition_subtree(self, root):
+        # contract any nodes in the subtree with only two bound edges
+
+        children = list(self.get_children(root))
+        for child in children:
+            # print(child)
+            self.condition_subtree(child)
+
+        if len(children) == 1:
+
+            child = children[0]
+            # self.draw(color=(root, child))
+            ct = self[child]
+            self[root] = self[root] @ ct
+            self[root].drop_tags(ct.tags)
+            gcs = self.get_children(child)
+            for gc in gcs:
+                self._parents[gc] = root
+            # _ = self._parents.pop(child)
+            self.delete(child)
+
+            # print('deleted ' + child)
+
+
+    def condition_tree(self):
+        self.condition_subtree(self.get_top_parent())
+
+
+    def rename_phys_indices(self, prefix):
+        if len(prefix) != 1:
+            raise Exception('prefixes must be exactly one character')
+        outerbonds = self.outer_inds()
+        self.reindex_({ob: prefix + ob[1:] for ob in outerbonds})
+
+    def bra(self):
+
+        xb = self.H.copy()
+        xb.rename_phys_indices('b')
+        return xb
+
+    def ket(self):
+
+        xk = self.copy()
+        xk.rename_phys_indices('k')
+        return xk
+
+
+    def delete(self, tag):
+        # print(self._parents)
+        # print(tag)
+        super().delete(tag)
+        self._parents.pop(tag)
 
 
 def energy(tree, mpo):
@@ -759,3 +1258,12 @@ def optimize_MPO(H, max_bond, rounds = 10, min_coord = 3, max_coord = 3, rng = N
 
 def minimize_stream(series, optim_func = min):
     return [optim_func(series[:k+1]) for k in range(len(series))]
+
+
+
+# L = 16
+# x = TTN.random_TTN(L, 2, 5, 5, 3, 3, rng=None)
+
+
+
+
