@@ -489,6 +489,14 @@ for run in range(runs):  # 'runs' --> 'range(runs)' npds 2023-08-21
     best_energies_largest = [loss_energy(emo, terms)]
     best_ovps_largest = []
     
+    
+    init_svd_bonds = []
+    for k in range(len(emo.tensors)):
+        this_bonds = emo[str(k)].shape
+        init_svd_bonds.append((k, this_bonds))
+        
+    all_svd_bonds = [init_svd_bonds]
+    
     # q = get_entanglement_spectra(emo)
     
     
@@ -521,6 +529,12 @@ for run in range(runs):  # 'runs' --> 'range(runs)' npds 2023-08-21
         
         best_energies_largest.append(loss_energy(emo_largest, terms))
         
+        iteration_svd_bonds = []
+        for k in range(len(emo.tensors)):
+            this_bonds = emo[str(k)].shape
+            iteration_svd_bonds.append((k, this_bonds))
+        all_svd_bonds.append(iteration_svd_bonds)
+        
         # if np.abs((best_energies[-1] - best_energies[-2]) / best_energies[-2]) > 0.01:
         #     do_global = True
         
@@ -552,6 +566,7 @@ for run in range(runs):  # 'runs' --> 'range(runs)' npds 2023-08-21
             emo_largest = eopt_largest.optimize(1000)
             
             best_energies_largest.append(loss_energy(emo_largest, terms))
+            
     
         
     errors = np.array(best_energies) - best_energies[0]
@@ -559,13 +574,10 @@ for run in range(runs):  # 'runs' --> 'range(runs)' npds 2023-08-21
     
     # save the data
     
-    svd_bonds = []
-    for k in range(len(emo.tensors)):
-        this_bonds = emo[str(k)].shape
-        svd_bonds.append((k, this_bonds))
+   
     
     with open(f'data/mera_learning_data/{this_id}_bonds.pkl', 'wb') as f:
-        pickle.dump(svd_bonds, f)
+        pickle.dump(all_svd_bonds, f)
     np.save(f'data/mera_learning_data/{this_id}_errors_svd.npy', errors)
     np.save(f'data/mera_learning_data/{this_id}_errors_largest.npy', errors_largest)
     np.save(f'data/mera_learning_data/{this_id}_couplingvals.npy', coupling_vals)
