@@ -48,6 +48,8 @@ def mera_adjacency_matrix(mera_bonds):
         
     adj[-2, -1] = sum(mera_bonds[-1][1])
     adj[-1, -2] = sum(mera_bonds[-1][1])
+    
+    return adj
 
 
 datadir = 'data/mera_data/'
