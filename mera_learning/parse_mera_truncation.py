@@ -55,16 +55,31 @@ def mera_adjacency_matrix(mera_bonds):
 datadir = 'data/mera_data/'
 jobfiles = os.listdir(datadir)
 
-#find random field ising uids
+# find random field ising uids
 hamtype = 'ising_random_fields'
+Lval = 32
+Dval = 2
 
-hamtypefiles = [x for x in jobfiles if 'hamtype' in x]
+uidfiles = [x for x in jobfiles if 'bonds' in x]
 uids = []
-for s in hamtypefiles:
-    with open(f'{datadir}{s}', 'rb') as f:
-        x = pickle.load(f)
-        if x[0][1] == hamtype:
-            uids.append(s.split('hamtype')[0][:-1])
+for s in uidfiles:
+    _, slurmid, procid, runid, lid, did, _= s.split('_')
+    if lid != f'L{Lval}' or did != f'D{Dval}':
+        continue
+    
+    hamtypefile = f'MERA_{slurmid}_{procid}_0_{lid}_{did}_hamtype.pkl'
+    try:
+        
+        # check to see if bonds file is valid
+        with open(f'{datadir}{s}', 'rb') as f:
+            x = pickle.load(f)
+        
+        with open(f'{datadir}{hamtypefile}', 'rb') as f:
+            x = pickle.load(f)
+            if x[0][1] == hamtype:
+                uids.append(s.split('bonds')[0][:-1])
+    except:
+        continue
             
 
 
@@ -85,12 +100,20 @@ for uid in uids:
         thisbonds = pickle.load(f)
         bonds.append(thisbonds)
     
-    adjpath = f'{datadir}{uid}_adjacency.npy'
+    adjpath = f'{datadir}{uid}_adjacency.pkl'
     if os.path.isfile(adjpath):
-        adj = np.load(adjpath)
+        # adj = np.load(adjpath)
+        with open(adjpath, 'rb') as f:
+            adj = pickle.load(f)
     else:
-        adj = mera_adjacency_matrix(thisbonds)
-        np.save(adjpath, adj)
+        if type(thisbonds) == list:
+            adj = [mera_adjacency_matrix(t) for t in thisbonds]
+        else:
+            adj = mera_adjacency_matrix(thisbonds)
+            
+        with open(adjpath, 'wb') as f:
+            pickle.dump(adj, f)
+        # np.save(adjpath, adj)
     adjs.append(adj)
     
     e_svd = np.load(f'{datadir}{uid}_errors_svd.npy')
