@@ -119,7 +119,7 @@ for uid in uids:
     e_svd = np.load(f'{datadir}{uid}_errors_svd.npy')
     e_largest = np.load(f'{datadir}{uid}_errors_largest.npy')
     all_errors.append([e_svd, e_largest])
-    error_comparison.append(e_largest - e_svd) # positive == svd is working better
+    error_comparison.append((e_largest - e_svd)) # positive == svd is working better
     print(f'\r{100 * k / len(uids):.2f}% done loading...', end='')
     k+=1
     
