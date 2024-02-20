@@ -55,10 +55,13 @@ def mera_adjacency_matrix(mera_bonds):
 datadir = 'data/mera_data/'
 jobfiles = os.listdir(datadir)
 
-# find random field ising uids
+## user-definable params here
+
 hamtype = 'ising_random_fields'
 Lval = 32
 Dval = 2
+
+## user-definable params stop here
 
 uidfiles = [x for x in jobfiles if 'bonds' in x]
 uids = []
@@ -73,36 +76,48 @@ for s in uidfiles:
         # check to see if bonds file is valid
         with open(f'{datadir}{s}', 'rb') as f:
             x = pickle.load(f)
+        with open(f'{datadir}{s}', 'rb') as f:
+            x = pickle.load(f)
         
         with open(f'{datadir}{hamtypefile}', 'rb') as f:
             x = pickle.load(f)
             if x[0][1] == hamtype:
                 uids.append(s.split('bonds')[0][:-1])
+                
+            
     except:
         continue
             
 
+# load data (mera bond sizes, adjancency matrix, energy errors, hamiltonian couplings)
+# for each UID
 
-# with open(f'data/mera_learning_data/jobdir/{this_id}_hamtype.pkl', 'wb') as f:
-#     pickle.dump([('HAMTYPE', HAMTYPE), ('disorder_strength', disorder_strength),
-#                  ('j0', j0)], f)
-
-# determine bonds
-
+# for learning: matching input (couplings) <--> output (bond sizes)
 
 all_errors = []
 error_comparison = []
 bonds = []
+couplings = []
 adjs = []
+
+
+SELECT_PAIRS = True
+select_states = []
+error_epsilon = 1e-6
+
 k = 0
 for uid in uids:
     with open(f'{datadir}{uid}_bonds.pkl', 'rb') as f:
         thisbonds = pickle.load(f)
         bonds.append(thisbonds)
+    # with open(f'{datadir}{uid}_couplingvals.pkl', 'rb') as f:
+    #     thiscouplings = pickle.load(f)
+    #     couplings.append(thiscouplings)
+    thiscouplings = np.load(f'{datadir}{uid}_couplingvals.npy')
+    couplings.append(thiscouplings)
     
     adjpath = f'{datadir}{uid}_adjacency.pkl'
     if os.path.isfile(adjpath):
-        # adj = np.load(adjpath)
         with open(adjpath, 'rb') as f:
             adj = pickle.load(f)
     else:
@@ -113,15 +128,31 @@ for uid in uids:
             
         with open(adjpath, 'wb') as f:
             pickle.dump(adj, f)
-        # np.save(adjpath, adj)
     adjs.append(adj)
     
+    # energy error for SVD truncation
     e_svd = np.load(f'{datadir}{uid}_errors_svd.npy')
+    
+    # energy error for naive truncation
     e_largest = np.load(f'{datadir}{uid}_errors_largest.npy')
+    
+    
+    
+    if SELECT_PAIRS:
+        max_idx = np.argmax(e_svd > error_epsilon) - 1
+        select_states.append(adj[max_idx])
+
+    
+    
     all_errors.append([e_svd, e_largest])
-    error_comparison.append((e_largest - e_svd)) # positive == svd is working better
+    
+    # compares error for the different truncation methods
+    # positive values == svd is working better
+    error_comparison.append((e_largest - e_svd)) 
     print(f'\r{100 * k / len(uids):.2f}% done loading...', end='')
     k+=1
+    
+pairs = list(zip(couplings, select_states))
     
 max_iterations = max([len(x) for x in error_comparison])
 ec_array = np.zeros((len(uids), max_iterations))
@@ -136,7 +167,10 @@ error_comparison_avg = np.mean(ec_cleaned, axis=0)
 
 for k in range(len(error_comparison_avg)):
     print(f'step {k}: error is {error_comparison_avg[k]:.3e}')
-
+    
+if pairs != []:
+    with open(f'data/MERA_pairs_L{Lval}_D{Dval}.pkl', 'rb') as f:
+        pickle.dump(pairs, f)
 
 
 

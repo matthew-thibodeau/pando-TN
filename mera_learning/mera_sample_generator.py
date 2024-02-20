@@ -465,6 +465,11 @@ for run in range(runs):  # 'runs' --> 'range(runs)' npds 2023-08-21
     eopt.optimizer = 'adam'  # the default
     emo = eopt.optimize(1500)
     
+    # initialize MERA, optimize with 1500 adam steps to get true ground state
+    # loop is (for ~12 steps):
+        # truncate
+        # optimize (1000 adam steps)
+    
     
     optimal = emo.copy()
     
