@@ -103,7 +103,8 @@ adjs = []
 
 SELECT_PAIRS = True
 select_states = []
-error_epsilon = 1e-6
+error_epsilon = 1e-3
+zerocount = 0
 
 k = 0
 for uid in uids:
@@ -141,6 +142,8 @@ for uid in uids:
     if SELECT_PAIRS:
         max_idx = np.argmax(e_svd > error_epsilon) - 1
         select_states.append(adj[max_idx])
+        if max_idx == 0:
+            zerocount += 1
 
     
     
@@ -169,7 +172,7 @@ for k in range(len(error_comparison_avg)):
     print(f'step {k}: error is {error_comparison_avg[k]:.3e}')
     
 if pairs != []:
-    with open(f'data/MERA_pairs_L{Lval}_D{Dval}.pkl', 'rb') as f:
+    with open(f'data/MERA_pairs_L{Lval}_D{Dval}.pkl', 'wb') as f:
         pickle.dump(pairs, f)
 
 
