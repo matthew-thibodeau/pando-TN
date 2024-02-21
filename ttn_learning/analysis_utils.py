@@ -73,7 +73,7 @@ def get_all_uids(today: str, L: int, site_dim: int, bond_size: int, data_path: s
     return accept_jobs
 
 
-def associate_pairs(today, L, site_dim, bond_size, data_path, save_path):
+def associate_TTN_pairs(today, L, site_dim, bond_size, data_path, save_path):
     '''
     Get all data given the specifiers; for each, find the most optimized TTN x;
     and save the pairs (ham, x) for learning
@@ -103,8 +103,29 @@ def associate_pairs(today, L, site_dim, bond_size, data_path, save_path):
     
     with open(f'{save_path}/pairs_L{L}_D{site_dim}_m{bond_size}.pkl', 'wb') as f:
         pickle.dump(pairs, f)
+        
+        
+def load_TTN_adjacency_pairs(L, site_dim, bond_size):
     
+    data_path = 'data/learning_pairs'
     
+    with open(f'{data_path}/pairs_L{L}_D{site_dim}_m{bond_size}.pkl', 'rb') as f:
+        pairs = pickle.load(f)
+        
+        
+    adjacency_pairs = [(x, y.get_adjacency_matrix()) for x,y in pairs]
+    return adjacency_pairs
+
+
+def load_MERA_adjacency_pairs(L, site_dim):
+    
+    data_path = '../mera_learning/data'
+    
+    with open(f'{data_path}/MERA_pairs_L{L}_D{site_dim}.pkl', 'rb') as f:
+        adjacency_pairs = pickle.load(f)
+        
+        
+    return adjacency_pairs
     
     
 ####################################################################
