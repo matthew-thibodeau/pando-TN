@@ -303,7 +303,7 @@ class NeuralNetwork(nn.Module):
 
 model = torch.load('cos_model.tt')
 
-runs = 100
+runs = 1
 for run_id in range(runs):    
 
 	Jm = -1
@@ -314,14 +314,14 @@ for run_id in range(runs):
 	cos_low = 1
 	cos_high = 5
 
-	L = int(sys.argv[1])
-	site_dim = int(sys.argv[2]) 
+	L = 40#int(sys.argv[1])
+	site_dim = 3#int(sys.argv[2]) 
 	S = float(site_dim - 1)/2.
     
-	this_id =  os.environ['SLURM_JOB_ID']  + '_' + os.environ['SLURM_PROCID'] + '_' + str(run_id) + f'_L{L}_D{site_dim}'    
+	this_id =  'xxx'#os.environ['SLURM_JOB_ID']  + '_' + os.environ['SLURM_PROCID'] + '_' + str(run_id) + f'_L{L}_D{site_dim}'    
 	print('starting '  + this_id)
 
-	energy_tol = 1e-8
+	energy_tol = 1e-6
 	svd_cutoffs = 1e-11
 
 	#H, j, h = random_1d_heis(L, Jvar, Jm, hvar, hm, S)
@@ -331,7 +331,7 @@ for run_id in range(runs):
 	tdn[:,1] = h
 	torch_data = torch.Tensor(tdn).unsqueeze(0)	
 	
-	dmrg = qtn.DMRG2(H, bond_dims=[20] * 10 + [30] * 10 + [40] * 10 + [50] * 10 + [80] * 20 + [120] * 20, cutoffs=svd_cutoffs)
+	dmrg = qtn.DMRG2(H,  cutoffs=svd_cutoffs, bond_dims=[5] * 5 + [10] * 10 + [20] * 15 + [40] * 20 + [50] * 25 + [60] * 50)#[20] * 10 + [30] * 10 + [40] * 10 + [50] * 10 + [80] * 20 + [120] * 20,)
 	t2_i = time.perf_counter()
 	# dmrg = qtn.DMRG2(H, bond_dims=[50] * 10 + [100] * 10 + [150] * 10, cutoffs=1e-8)
 	succ = dmrg.solve(energy_tol, max_sweeps = 100, sweep_sequence = 'RL', verbosity = 1)
@@ -341,12 +341,13 @@ for run_id in range(runs):
 	if succ:
     
 		x = dmrg.state
-		exact_bds = x.bond_sizes()
+		exact_bds = (x.bond_sizes() / np.max(x.bond_sizes())) * 8
+		exact_bds = [max(1, int(item)) for item in exact_bds]
 		pred_bds_float = model(torch_data).detach().numpy()[0,:-1]
 		pred_bds = [int(item + 3) for item in pred_bds_float]
 		# set up dmrg1, dmrg_guided with exact data, and dmrg_guided with model data
-		dmrg1 = qtn.DMRG1(H, bond_dims = [int(sum(exact_bds)/len(exact_bds)) + ex for ex in range(20)], cutoffs=svd_cutoffs)
-		dmrg_g = DMRG_guided(H, exact_bds, expand = 1, stride = 5, cutoffs = svd_cutoffs)
+		dmrg1 = qtn.DMRG1(H, bond_dims = [int(sum(exact_bds)/len(exact_bds)) + 2*ex for ex in range(20)], cutoffs=svd_cutoffs)
+		dmrg_g = DMRG_guided(H, exact_bds, expand = 2, stride = 5, cutoffs = svd_cutoffs)
 		dmrg_a = DMRG_guided(H, pred_bds, expand = 2, stride = 5, cutoffs = svd_cutoffs)
 		
 		# compare their convergence wall time
@@ -368,11 +369,11 @@ for run_id in range(runs):
 
 
 		time_data = (t1, conv1, tg, convg, ta, conva, t2)
-		fname_time = 'data/time_data_' + this_id 
+		fname_time = 'localdata/time_data_' + this_id 
 		np.save(fname_time, time_data)
 
 		energy_data = (dmrg_g.energy - dmrg.energy, dmrg_a.energy - dmrg.energy, dmrg1.energy - dmrg.energy)
-		fname_energy = 'data/energy_data_' + this_id
+		fname_energy = 'localdata/energy_data_' + this_id
 		np.save(fname_energy, energy_data)
 
 		

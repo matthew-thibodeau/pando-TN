@@ -9,6 +9,7 @@ Created on Fri Sep  8 12:02:06 2023
 import numpy as np
 import pickle
 import os
+import matplotlib.pyplot as plt
 
 
 def mera_adjacency_matrix(mera_bonds):
@@ -54,6 +55,7 @@ def mera_adjacency_matrix(mera_bonds):
 
 datadir = 'data/mera_data/'
 jobfiles = os.listdir(datadir)
+SAVE = False
 
 ## user-definable params here
 
@@ -127,8 +129,9 @@ for uid in uids:
         else:
             adj = mera_adjacency_matrix(thisbonds)
             
-        with open(adjpath, 'wb') as f:
-            pickle.dump(adj, f)
+        if SAVE:
+            with open(adjpath, 'wb') as f:
+                pickle.dump(adj, f)
     adjs.append(adj)
     
     # energy error for SVD truncation
@@ -155,6 +158,27 @@ for uid in uids:
     print(f'\r{100 * k / len(uids):.2f}% done loading...', end='')
     k+=1
     
+    
+error_arr = np.array(all_errors)
+error_arr[np.abs(error_arr) > 1] = 0
+large_err_cutoff = 3
+
+err_svd = error_arr[:,0,:]
+err_largest = error_arr[:,1,:]
+
+e_svd_mean = np.mean(err_svd, axis=0)
+e_svd_std = np.std(err_svd, axis=0)
+e_svd_errorbar = e_svd_std / np.sqrt(err_svd.shape[0])
+
+e_largest_mean = np.mean(err_largest, axis=0)
+e_largest_std = np.std(err_largest, axis=0)
+e_largest_errorbar = e_largest_std / np.sqrt(err_largest.shape[0])
+
+fig,ax = plt.subplots()
+ax.errorbar(range(err_svd.shape[1]), e_svd_mean, yerr=e_svd_errorbar)
+ax.errorbar(range(err_largest.shape[1]), e_largest_mean, yerr=e_largest_std)
+
+    
 pairs = list(zip(couplings, select_states))
     
 max_iterations = max([len(x) for x in error_comparison])
@@ -171,9 +195,11 @@ error_comparison_avg = np.mean(ec_cleaned, axis=0)
 for k in range(len(error_comparison_avg)):
     print(f'step {k}: error is {error_comparison_avg[k]:.3e}')
     
-if pairs != []:
-    with open(f'data/MERA_pairs_L{Lval}_D{Dval}.pkl', 'wb') as f:
-        pickle.dump(pairs, f)
+    
+if SAVE:   
+    if pairs != []:
+        with open(f'data/MERA_pairs_L{Lval}_D{Dval}.pkl', 'wb') as f:
+            pickle.dump(pairs, f)
 
 
 

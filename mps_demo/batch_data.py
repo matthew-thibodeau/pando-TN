@@ -9,8 +9,8 @@ import numpy as np
 import h5py
 from glob import glob
 
-L = 40 
-D = 2
+L = 40
+D = 3
 getL = str(L)
 
 flist = glob(f'data/cos_random/run_data*L{getL}*D{D}.npy')
