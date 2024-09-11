@@ -300,10 +300,10 @@ class NeuralNetwork(nn.Module):
         logits = self.linear_relu_stack(x)
         return logits
 
+modelsamples = int(sys.argv[1])
+model = torch.load(f'/home/mt24/aqtnd/mps_demo/models/L80model_samples{modelsamples}.pt')
 
-model = torch.load('cos_model.tt')
-
-runs = 1
+runs = 100
 for run_id in range(runs):    
 
 	Jm = -1
@@ -314,11 +314,11 @@ for run_id in range(runs):
 	cos_low = 1
 	cos_high = 5
 
-	L = 40#int(sys.argv[1])
+	L = 80#int(sys.argv[1])
 	site_dim = 3#int(sys.argv[2]) 
 	S = float(site_dim - 1)/2.
     
-	this_id =  'xxx'#os.environ['SLURM_JOB_ID']  + '_' + os.environ['SLURM_PROCID'] + '_' + str(run_id) + f'_L{L}_D{site_dim}'    
+	this_id =  os.environ['SLURM_JOB_ID']  + '_' + os.environ['SLURM_PROCID'] + '_' + str(run_id) + f'_L{L}_D{site_dim}_samples{modelsamples}'    
 	print('starting '  + this_id)
 
 	energy_tol = 1e-6
@@ -369,11 +369,11 @@ for run_id in range(runs):
 
 
 		time_data = (t1, conv1, tg, convg, ta, conva, t2)
-		fname_time = 'localdata/time_data_' + this_id 
+		fname_time = 'data/time_data_' + this_id 
 		np.save(fname_time, time_data)
 
 		energy_data = (dmrg_g.energy - dmrg.energy, dmrg_a.energy - dmrg.energy, dmrg1.energy - dmrg.energy)
-		fname_energy = 'localdata/energy_data_' + this_id
+		fname_energy = 'data/energy_data_' + this_id
 		np.save(fname_energy, energy_data)
 
 		

@@ -47,9 +47,15 @@ fig_corr.set_size_inches(3.125, 1.75)
 plotmode = r'$\times$'
 cmap = 'inferno'
 
+samples = None
+
 for counter, (Lval, axerr, axtime, ax_corr) in enumerate(zip(Lvals, axerrs, axtimes, ax_corrs)):
 
-    listing = glob.glob(f'{topdir}/time_data*_L*D{Dval}.npy')
+    if samples is None:
+        listing = glob.glob(f'{topdir}/time_data*_L*D{Dval}.npy')
+        listing = [x for x in listing if 'samples' not in x]
+    else:
+        listing = glob.glob(f'{topdir}/time_data*_L*D{Dval}_samples{samples}.npy')
     exactdict = defaultdict(list)
     approxdict = defaultdict(list)
     onesitedict = defaultdict(list)
@@ -75,7 +81,11 @@ for counter, (Lval, axerr, axtime, ax_corr) in enumerate(zip(Lvals, axerrs, axti
         else:
             baddict[(dval, lval)].append(exactval)
     
-    energylisting = glob.glob(f'{topdir}/energy_data*_L*D{Dval}.npy')
+    if samples is None:
+        energylisting = glob.glob(f'{topdir}/energy_data*_L*D{Dval}.npy')
+        energylisting = [x for x in energylisting if 'samples' not in x]
+    else:
+        energylisting = glob.glob(f'{topdir}/energy_data*_L*D{Dval}_samples{samples}.npy')
     exact_e_dict = defaultdict(list)
     approx_e_dict = defaultdict(list)
     onesite_e_dict = defaultdict(list)
